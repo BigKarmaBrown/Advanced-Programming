@@ -7,6 +7,7 @@ using namespace std;
 int main()
 {
     Menu menu;
+    Player* player;
     menu.StartMenu();
 }
 
