@@ -1,0 +1,8 @@
+﻿  BattleSystem1.1.cpp
+  GameState.cpp
+E:\programming work\year 3\battleSystem1.1\BattleSystem1.1\BattleSystem1.1\GameState.cpp(8,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Menu.cpp
+  Wizard.cpp
+E:\programming work\year 3\battleSystem1.1\BattleSystem1.1\BattleSystem1.1\Wizard.cpp(9,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Generating Code...
+  BattleSystem1.1.vcxproj -> E:\programming work\year 3\battleSystem1.1\BattleSystem1.1\x64\Debug\BattleSystem1.1.exe

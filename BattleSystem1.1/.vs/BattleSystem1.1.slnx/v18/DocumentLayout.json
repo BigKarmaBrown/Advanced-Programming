@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\programming work\\year 3\\battleSystem1.1\\BattleSystem1.1\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{BE33A488-DF35-4348-BFAD-798C70702DA0}|BattleSystem1.1\\BattleSystem1.1.vcxproj|E:\\programming work\\year 3\\battleSystem1.1\\BattleSystem1.1\\BattleSystem1.1\\BattleSystem1.1.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{BE33A488-DF35-4348-BFAD-798C70702DA0}|BattleSystem1.1\\BattleSystem1.1.vcxproj|solutionrelative:BattleSystem1.1\\BattleSystem1.1.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "BattleSystem1.1.cpp",
+              "DocumentMoniker": "E:\\programming work\\year 3\\battleSystem1.1\\BattleSystem1.1\\BattleSystem1.1\\BattleSystem1.1.cpp",
+              "RelativeDocumentMoniker": "BattleSystem1.1\\BattleSystem1.1.cpp",
+              "ToolTip": "E:\\programming work\\year 3\\battleSystem1.1\\BattleSystem1.1\\BattleSystem1.1\\BattleSystem1.1.cpp",
+              "RelativeToolTip": "BattleSystem1.1\\BattleSystem1.1.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAABEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-10-23T07:38:24.981Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

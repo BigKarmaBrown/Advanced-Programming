@@ -1,13 +1,13 @@
 #pragma once
-#include "Player.h"
+class Player;
 using namespace std;
 #include <iostream>
 class Enemy
 {
 private:
 	
-	float damage;
-	int range;
+	
+	//int range;
 
 
 public:
@@ -15,5 +15,6 @@ public:
 	void run();
 	void brace();
 	void taketurn(Enemy* enemy, Player* player);
-	float health;
+	float health = 0;
+	float damage = 0;
 };

@@ -1,20 +1,21 @@
 #pragma once
-#include "Enemy.h";
+class Enemy;
 using namespace std;
 #include <iostream>
 class Player
 {
 protected:
 	
-	float maxHealth;
-	float damage;
-	int range;
-	int attackChance;
+	float maxHealth = 0;
+	float damage = 0;
+	int range = 0;
+	//int attackChance;
 
 public:
 	virtual float attack(Enemy* enemy);
 	void const run(Player* player);
 	void brace();
-	Player(int damage) : damage(damage) {}
-	float health;
+
+	Player(float damage, float maxHealth) : damage(damage), maxHealth(maxHealth) {}
+	float health = 0;
 };

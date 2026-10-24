@@ -2,9 +2,9 @@
 
 using namespace std;
 #include <iostream>
-#include <cctype>
+//#include <cctype>
 
-void Menu::StartMenu()
+void Menu::StartMenu(Player*& player, Enemy*& enemy, GameState* gameState)
 {
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
@@ -30,10 +30,11 @@ void Menu::StartMenu()
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 	system("Pause");
+	characterSelection(player,enemy, gameState);
 
 }
 
-void Menu::characterSelection(Player* player, Enemy* enemy)
+void Menu::characterSelection(Player* player, Enemy* enemy, GameState* gameState)
 {
 	string choice;
 	system("CLS");
@@ -65,21 +66,21 @@ void Menu::characterSelection(Player* player, Enemy* enemy)
 		player = new Barbarian();
 		cout << "----------------------------------------------- Barbarian  Selected ----------------------------------------------------" << endl;
 		system("pause");
-		chooseOpponent(enemy);
+		chooseOpponent(player, enemy, gameState);
 	}
 	else if (choice == "2" || choice == "Wiz" || choice == "Wizard" || choice == "2: Wizard" || choice == "wiz" || choice == "wizard")
 	{
 		player = new Wizard();
 		cout << "-------------------------------------------------- Wizard  Selected ----------------------------------------------------" << endl;
 		system("pause");
-		chooseOpponent(enemy);
+		chooseOpponent(player, enemy, gameState);
 	}
 	else if (choice == "3" || choice == "Archer" || choice == "Arch" || choice == "3: Archer" || choice == "archer" || choice == "arch")
 	{
 		player = new Archer();
 		cout << "-------------------------------------------------- Archer  Selected ----------------------------------------------------" << endl;
 		system("pause");
-		chooseOpponent(enemy);
+		chooseOpponent(player, enemy, gameState);
 	}
 	else {
 		cout << "Invalid Input, Please try again!" << endl;
@@ -87,7 +88,7 @@ void Menu::characterSelection(Player* player, Enemy* enemy)
 	}
 }
 
-void Menu::chooseOpponent(Enemy* enemy)
+void Menu::chooseOpponent(Player* player, Enemy* enemy, GameState* gameState)
 {
 	string choice;
 	system("CLS");
@@ -106,20 +107,28 @@ void Menu::chooseOpponent(Enemy* enemy)
 	cout << "-------------------------------------------------- 3: Return -----------------------------------------------------------" << endl;
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 
+	cin >> choice;
 	if (choice == "QUIT" || choice == "Quit" || choice == "3" || choice == "3: Quit")
 	{
 		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 		cout << "-------------------------------------------------- returning -----------------------------------------------------------" << endl;
 		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
+		system("pause");
+		gameState->GameStart(player, enemy);
 		return;
 	}
 	else if (choice == "1" || choice == "Goblin" || choice == "goblin" || choice == "Gob" || choice == "gob") {
 		enemy = new Goblin();
 		cout << "-------------------------------------------------- Goblin  Selected ----------------------------------------------------" << endl;
+		system("pause");
 	}
 	else if (choice == "2" || choice == "Dragon" || choice == "dragon" || choice == "Drag" || choice == "drag") {
 		enemy = new Dragon();
 		cout << "-------------------------------------------------- Dragon  Selected ----------------------------------------------------" << endl;
+		system("pause");
+		gameState->GameStart(player, enemy);
+			
+		
 	}
 	else {
 		cout << "Invalid Input, Please try again!" << endl;

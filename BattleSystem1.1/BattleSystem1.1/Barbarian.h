@@ -5,7 +5,8 @@ using namespace std;
 class Barbarian : public Player
 {
 public:
-	Barbarian() : Player(15) {};
+	Barbarian() : Player(15, 50) {};
 	~Barbarian();
 	float attack(Enemy* enemy) override;
+	void takeTurn();
 };

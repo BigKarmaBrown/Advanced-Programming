@@ -5,7 +5,7 @@ using namespace std;
 
 float Enemy::attack(float damage, bool hit, Player* player)
 {
-
+	return damage;
 }
 
 void Enemy::run()
@@ -21,7 +21,7 @@ void Enemy::taketurn(Enemy* enemy, Player* player)
 {
 	srand(time(0));
 	int randomNumber = rand() % 3 + 1;
-	randomNumber - 1;
+	randomNumber = randomNumber - 1;
 
 	switch (randomNumber)
 	{

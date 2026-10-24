@@ -2,6 +2,8 @@
 
 Dragon::Dragon()
 {
+	health = 200;
+	damage = 20;
 }
 
 Dragon::~Dragon()
@@ -13,7 +15,7 @@ float Dragon::attack(float damage, bool hit, Player* player) {
 	int randomNumber = rand() % 2 + 1;
 	if (randomNumber == 1)
 	{
-		return 20, true;
+		return 20;
 	}
 	else
 	{

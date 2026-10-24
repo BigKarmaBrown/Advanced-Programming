@@ -6,7 +6,8 @@ class Archer : public Player
 {
 public:
 
-	Archer() : Player(30) {};
+	Archer() : Player(30, 30) {};
 	~Archer();
 	float attack(Enemy* enemy) override;
+	void takeTurn();
 };

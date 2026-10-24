@@ -5,7 +5,8 @@ using namespace std;
 class Wizard : public Player
 {
 public:
-	Wizard() : Player(40) {};
+	Wizard() : Player(40, 20) {};
 	~Wizard();
 	float attack(Enemy* enemy) override;
+	void takeTurn();
 };

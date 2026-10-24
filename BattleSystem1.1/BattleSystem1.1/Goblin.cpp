@@ -2,6 +2,8 @@
 
 Goblin::Goblin()
 {
+	health = 100;
+	damage = 10;
 }
 
 Goblin::~Goblin()
@@ -13,7 +15,7 @@ float Goblin::attack(float damage, bool hit, Player* player)
 	int randomNumber = rand() % 10 + 1;
 	if (randomNumber <= 6)
 	{
-		return 10, true;
+		return 10;
 	}
 	else
 	{
@@ -22,7 +24,4 @@ float Goblin::attack(float damage, bool hit, Player* player)
 		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 		return false;
 	}
-}
-Goblin Health(Enemy* enemy) {
-	enemy->health = 100;
 }
