@@ -39,3 +39,8 @@ void Enemy::taketurn(Enemy* enemy, Player* player)
 		cout << "------------------------------ Enemy Took an invalid turn ---------------------------" << endl;
 	}
 }
+
+void Enemy::takeDamage(float damage)
+{
+	health = health - damage;
+}

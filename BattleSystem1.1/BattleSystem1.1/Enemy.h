@@ -15,6 +15,7 @@ public:
 	void run();
 	void brace();
 	void taketurn(Enemy* enemy, Player* player);
+	void takeDamage(float damage);
 	float health = 0;
 	float damage = 0;
 };
