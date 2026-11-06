@@ -7,5 +7,6 @@ class Dragon : public Enemy
 public:
 	Dragon();
 	~Dragon();
-	float attack(float damage, bool hit, Player* player) override;
+	float attack(float damage, Player* player) override;
+	void displayPicture() override;
 };

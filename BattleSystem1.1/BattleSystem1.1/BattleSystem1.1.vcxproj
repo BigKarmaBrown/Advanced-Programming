@@ -144,6 +144,7 @@
     <ClCompile Include="BattleSystem1.1.cpp" />
     <ClCompile Include="Dragon.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="ErrorHandler.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="Goblin.cpp" />
     <ClCompile Include="Menu.cpp" />
@@ -155,6 +156,7 @@
     <ClInclude Include="Barbarian.h" />
     <ClInclude Include="Dragon.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="ErrorHandler.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="Goblin.h" />
     <ClInclude Include="Menu.h" />

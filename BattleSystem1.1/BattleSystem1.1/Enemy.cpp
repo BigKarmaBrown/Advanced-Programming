@@ -3,36 +3,51 @@
 using namespace std;
 
 
-float Enemy::attack(float damage, bool hit, Player* player)
+float Enemy::attack(float damage, Player* player)
 {
+
 	return damage;
 }
 
 void Enemy::run()
 {
+	cout << "Enemey attempted to flee the fight but it failed! " << endl;
+
+	return;
 }
 
-void Enemy::brace()
+float Enemy::brace(Player* player)
 {
-
+	//float damageBraced = player->damage / 2;
+	cout << "Enemy braced for your hit! " << endl;
+	return 0;
+	
 }
 
 void Enemy::taketurn(Enemy* enemy, Player* player)
 {
-	srand(time(0));
+	srand(static_cast<unsigned int>(time(0)));
 	int randomNumber = rand() % 3 + 1;
 	randomNumber = randomNumber - 1;
 
 	switch (randomNumber)
 	{
-	case 0:
-		enemy->attack(10, true ,player);
-		break;
+	case 0: {
+		//cout << "ENEMY HIT YOU FOR " << enemy->damage << " DAMAGE !!" << endl;
+				enemy->attack(enemy->damage, player);
+				float damageTemp = enemy->attack(enemy->damage, player);
+				player->takeDamage(damageTemp);
+				return;
+				break;
+	}
+		
 	case 1:
 		run();
+		return;
 		break;
 	case 2:
-		brace();
+		brace(player);
+		return;
 		break;
 
 	default:
@@ -40,7 +55,12 @@ void Enemy::taketurn(Enemy* enemy, Player* player)
 	}
 }
 
-void Enemy::takeDamage(float damage)
+void Enemy::takeDamage(Player* player)
 {
-	health = health - damage;
+	health = health - player->damage;
+}
+
+void Enemy::displayPicture()
+{
+	cout << "enemy picture here" << endl;
 }

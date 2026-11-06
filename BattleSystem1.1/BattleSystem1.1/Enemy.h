@@ -11,11 +11,12 @@ private:
 
 
 public:
-	virtual float attack(float damage, bool hit, Player* player);
+	virtual float attack(float damage, Player* player);
 	void run();
-	void brace();
+	static float brace(Player* player);
 	void taketurn(Enemy* enemy, Player* player);
-	void takeDamage(float damage);
+	 void takeDamage(Player* player);
+	 virtual void displayPicture();
 	float health = 0;
 	float damage = 0;
 };

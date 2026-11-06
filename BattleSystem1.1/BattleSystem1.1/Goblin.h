@@ -7,5 +7,6 @@ class Goblin : public Enemy
 public:
 	Goblin();
 	~Goblin();
-	float attack(float damage, bool hit, Player* player) override;
+	float attack(float damage, Player* player) override;
+	void displayPicture() override;
 };

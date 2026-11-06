@@ -8,6 +8,7 @@ class Wizard : public Player
 public:
 	Wizard() : Player(40, 20) {};
 	~Wizard();
-	float attack(Enemy* enemy) override;
-	void takeTurn(Enemy* enemy);
+	float attack(Player* player, Enemy* enemy) override;
+	void takeTurn(Player* player, Enemy* enemy) override;
+	void const run();
 };

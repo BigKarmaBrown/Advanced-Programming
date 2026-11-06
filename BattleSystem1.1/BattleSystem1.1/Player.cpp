@@ -1,8 +1,14 @@
 #include "Player.h"
 #include "Enemy.h"
-float Player::attack(Enemy* enemy)
+float Player::attack(Player* player, Enemy* enemy)
 {
 	return damage;
+}
+
+
+void Player::takeDamage(float damage)
+{
+	health = health - damage;
 }
 
 void const Player::run(Player* player)
@@ -13,7 +19,13 @@ void const Player::run(Player* player)
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 }
 
-void Player::brace()
+float Player::brace(Enemy* enemy)
+{
+	float bracedDamage = enemy->damage / 2;
+	return bracedDamage;
+}
+
+void Player::takeTurn(Player* player, Enemy* enemy)
 {
 }
 

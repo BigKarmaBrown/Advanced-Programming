@@ -5,7 +5,7 @@ using namespace std;
 void GameState::GameStart(Player* player, Enemy* enemy)
 {
 	system("CLS");
-	srand(time(0));
+	srand(static_cast<unsigned int>(time(0)));
 	int whosTurn = rand() % 2 + 1;
 
 
@@ -18,25 +18,60 @@ void GameState::GameStart(Player* player, Enemy* enemy)
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
+	system("Pause");
+	system("CLS");
+	enemy->displayPicture();
+	while (true){
 
-	do {
-		if (whosTurn == 1)
-		{
-			player->attack(enemy);
-			//whosTurn = 2;
+		if (player->health <= 0 || enemy->health <= 0) {
+			displayWinner(player, enemy);
+			break;
 		}
-
-		if (whosTurn == 2)
+		else if (whosTurn == 1)
 		{
+			player->takeTurn(player, enemy);
+			system("Pause");
+			system("CLS");
+			enemy->displayPicture();
+			whosTurn = 2;
+		}
+	
+		else if (whosTurn == 2) {
 			enemy->taketurn(enemy, player);
-			// = 1;
+			system("Pause");
+			system("CLS");
+			enemy->displayPicture();
+			whosTurn = 1;
 		}
-
-		//fighting will be here
-
-
-		
-
+	
 	}
-	while (player->health > 0 && enemy->health > 0);
+
+}
+void GameState::displayWinner(Player* player, Enemy* enemy) {
+	if (enemy->health <= 0)
+	{
+		player->killed++;
+		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
+		cout << "------------------------------------------------------You Won The Fight-------------------------------------------------" << endl;
+		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
+		
+		displayDead(player);
+		enemy = NULL;
+		return;
+	}
+	else if (player->health <= 0)
+	{
+		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
+		cout << "-----------------------------------------------------You Lost The Fight-------------------------------------------------" << endl;
+		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
+		
+		displayDead(player);
+		player = NULL;
+		return;
+	}
+}
+
+void GameState::displayDead(Player* player)
+{
+	cout << "Enemies Slain: " << player->killed << endl;
 }

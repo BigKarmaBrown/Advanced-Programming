@@ -64,6 +64,7 @@ void Menu::characterSelection(Player* player, Enemy* enemy, GameState* gameState
 	else if (choice == "1" || choice == "Barb" || choice == "Barbarian" || choice == "4: Barbarian" || choice == "barb" || choice == "barbarian")
 	{
 		player = new Barbarian();
+		
 		cout << "----------------------------------------------- Barbarian  Selected ----------------------------------------------------" << endl;
 		system("pause");
 		chooseOpponent(player, enemy, gameState);
@@ -114,13 +115,14 @@ void Menu::chooseOpponent(Player* player, Enemy* enemy, GameState* gameState)
 		cout << "-------------------------------------------------- returning -----------------------------------------------------------" << endl;
 		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 		system("pause");
-		gameState->GameStart(player, enemy);
+		
 		return;
 	}
 	else if (choice == "1" || choice == "Goblin" || choice == "goblin" || choice == "Gob" || choice == "gob") {
 		enemy = new Goblin();
 		cout << "-------------------------------------------------- Goblin  Selected ----------------------------------------------------" << endl;
 		system("pause");
+		gameState->GameStart(player, enemy);
 	}
 	else if (choice == "2" || choice == "Dragon" || choice == "dragon" || choice == "Drag" || choice == "drag") {
 		enemy = new Dragon();

@@ -4,12 +4,17 @@ Wizard::~Wizard()
 {
 }
 
-float Wizard::attack(Enemy* enemy) 
+float Wizard::attack(Player* player,Enemy* enemy) 
 {
-	srand(time(0));
+	srand(static_cast<unsigned int>(time(0)));
 	int randomNumber = rand() % 3 + 1;
 	if (randomNumber == 1)
 	{
+		damage = player->damage;
+		enemy->takeDamage(player);
+		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
+		cout << "-------------------------------------------------- Attack Hit For " << damage << "------------------------------------------------------- " << endl;
+		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 		return damage;
 	}
 	else
@@ -21,13 +26,15 @@ float Wizard::attack(Enemy* enemy)
 	}
 }
 
-void Wizard::takeTurn(Enemy* enemy)
+void Wizard::takeTurn(Player* player, Enemy* enemy) 
 {
 	string input;
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 	cout << "---------------------------------------------------- Players Turn ------------------------------------------------------" << endl;
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
-	cout << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl;
+	cout << endl   << endl << endl;
+	cout << "Health: " << player->health << endl;
+	cout << "Damage: " << player->damage << endl;
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 	cout << "1: Attack" << endl;
 	cout << "2: Brace" << endl;
@@ -37,16 +44,19 @@ void Wizard::takeTurn(Enemy* enemy)
 
 	if (input == "1" || input == "Attack" || input == "1: Attack" || input == "attack")
 	{
-		float damage = attack(enemy);
-		enemy->takeDamage(damage);
+		attack(player, enemy);
+		
+		return;
 	}
 	else if (input == "2" || input == "Brace" || input == "2: Brace" || input == "brace")
 	{
-
+		brace(enemy);
+		return;
 	}
 	else if (input == "3" || input == "Run" || input == "run" || input == "3: Run")
 	{
-
+		run();
+		return;
 	}
 	else {
 		cout << "Invalid Input, Please try again!" << endl;
@@ -54,4 +64,10 @@ void Wizard::takeTurn(Enemy* enemy)
 	}
 
 
+}
+void const Wizard::run() {
+	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
+	cout << "------------------------------------------------ Wizard Ran from Fight -------------------------------------------------" << endl;
+	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
+	return;
 }
