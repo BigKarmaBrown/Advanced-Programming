@@ -4,7 +4,8 @@
 using namespace std;
 class ErrorHandler : public exception
 {
-    virtual const char* what() const throw()
+public:
+    virtual const char* cantDisplayWInner() const throw()
     {
         return "Error Error this an error";
     }

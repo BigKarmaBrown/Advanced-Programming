@@ -13,7 +13,7 @@ public:
 	int totalTurns = 0;
 	bool playersTurn = false;
 
-	void GameStart(Player* player, Enemy* enemy);
+	bool GameStart(Player* player, Enemy* enemy);
 	void displayWinner(Player* player, Enemy* enemy);
 	GameState(){};
 	//friend void displayDead(Player player);

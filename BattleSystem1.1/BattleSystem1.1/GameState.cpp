@@ -1,8 +1,12 @@
+#pragma once
 #include "GameState.h"
+#include "Menu.h"
+#include "ErrorHandler.h"
+#include "assert.h"
 using namespace std;
 #include <iostream>
 
-void GameState::GameStart(Player* player, Enemy* enemy)
+bool GameState::GameStart(Player* player, Enemy* enemy)
 {
 	system("CLS");
 	srand(static_cast<unsigned int>(time(0)));
@@ -24,8 +28,21 @@ void GameState::GameStart(Player* player, Enemy* enemy)
 	while (true){
 
 		if (player->health <= 0 || enemy->health <= 0) {
-			displayWinner(player, enemy);
-			break;
+			try {
+				displayWinner(player, enemy);
+			if (player->health <= 0) {
+				return false;
+			}
+			return true;
+				break;
+			}
+			catch(ErrorHandler e)
+			{
+				cout << "Exception: " << e.cantDisplayWInner();
+			
+			}
+			
+			
 		}
 		else if (whosTurn == 1)
 		{
@@ -42,6 +59,11 @@ void GameState::GameStart(Player* player, Enemy* enemy)
 			system("CLS");
 			enemy->displayPicture();
 			whosTurn = 1;
+		}
+		else {
+			throw(false); 
+
+			
 		}
 	
 	}
@@ -73,5 +95,6 @@ void GameState::displayWinner(Player* player, Enemy* enemy) {
 
 void GameState::displayDead(Player* player)
 {
+	//assert(player->killed);
 	cout << "Enemies Slain: " << player->killed << endl;
 }

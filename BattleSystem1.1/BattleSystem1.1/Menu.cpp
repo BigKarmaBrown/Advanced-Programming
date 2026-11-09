@@ -91,6 +91,9 @@ void Menu::characterSelection(Player* player, Enemy* enemy, GameState* gameState
 
 void Menu::chooseOpponent(Player* player, Enemy* enemy, GameState* gameState)
 {
+	
+
+
 	string choice;
 	system("CLS");
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
@@ -122,13 +125,20 @@ void Menu::chooseOpponent(Player* player, Enemy* enemy, GameState* gameState)
 		enemy = new Goblin();
 		cout << "-------------------------------------------------- Goblin  Selected ----------------------------------------------------" << endl;
 		system("pause");
-		gameState->GameStart(player, enemy);
+		bool wonGame = gameState->GameStart(player, enemy);
+		if (wonGame == true) {
+			return;
+		}
+		
 	}
 	else if (choice == "2" || choice == "Dragon" || choice == "dragon" || choice == "Drag" || choice == "drag") {
 		enemy = new Dragon();
 		cout << "-------------------------------------------------- Dragon  Selected ----------------------------------------------------" << endl;
 		system("pause");
-		gameState->GameStart(player, enemy);
+		bool wonGame = gameState->GameStart(player, enemy);
+		if (wonGame == true) {
+			return;
+		}
 			
 		
 	}

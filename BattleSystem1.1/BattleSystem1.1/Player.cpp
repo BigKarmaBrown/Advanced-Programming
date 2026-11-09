@@ -4,6 +4,10 @@ float Player::attack(Player* player, Enemy* enemy)
 {
 	return damage;
 }
+float Player::heavyAttack(Player* player, Enemy* enemy)
+{
+	return heavyDamage;
+}
 
 
 void Player::takeDamage(float damage)
