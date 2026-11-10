@@ -10,12 +10,24 @@ Dragon::~Dragon()
 {
 }
 
-float Dragon::attack(float damage, bool hit, Player* player) {
+float Dragon::attack(float damage, Player* player, NightCycle* cycle) {
 	srand(time(0));
 	int randomNumber = rand() % 2 + 1;
+    float multiplier = 0;
+    if (cycle->calcDay(cycle) == true) {
+        cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
+        cout << "----------------------------------------------- DRAGON IS ENRANGED ----------------------------------------------------" << endl;
+        cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
+        multiplier = 1.5;
+        cycle++;
+    }
+    else {
+        multiplier = 1;
+    }
+
 	if (randomNumber == 1)
 	{
-		return 20;
+		return 20 * multiplier;
 	}
 	else
 	{
@@ -24,4 +36,28 @@ float Dragon::attack(float damage, bool hit, Player* player) {
 		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 		return false;
 	}
+}
+
+void Dragon::displayPicture()
+{
+    cout << "                                             __----~~~~~~~~~~~------___" << endl;
+    cout << "                                  .  .   ~~//====......          __--~ ~~" << endl;
+    cout << "                  -.            \\\_|//     |||\\\  ~~~~~~::::... /~" << endl;
+    cout << "               ___-==_       _-~o~  \\\/    |||  \\\            _/~~-" << endl;
+    cout << "       __---~~~.==~||\\\=_    -_--~/_-~|-   |\\\   \\\        _/~" << endl;
+    cout << "   _-~~     .=~    |  \\\-_    '-~7  /-   /  ||    \\\      / " << endl;
+    cout << " .~       .~       |   \\\ -_    /  /-   /   ||      \\\   / " << endl;
+    cout << "/  ____  /         |     \\\ ~-_/  /|- _/   .||       \\\ /" << endl;
+    cout << "|~~    ~~|--~~~~--_ \\\     ~==-/   | \\\~--===~~        .\\\"" << endl;
+    cout << "         '         ~-|      /|    |-~\\\~~       __--~~" << endl;
+    cout << "                     |-~~-_/ |    |   ~\\\_   _-~            /\\\"" << endl;
+    cout << "                          /  \\\     \\\__   \\\/~                \\\__ " << endl;
+    cout << "_--~ _/ | .-~~____--~-/                  ~~==. " << endl;
+    cout << "  ((->/~   '.|||' -_|    ~~-/ ,              . _||" << endl;
+    cout << "                        -_     ~\\\      ~~---l__i__i__i--~~_/" << endl;
+    cout << "                                _-~-__   ~)  \\\--______________--~~" << endl;
+    cout << "                              //.-~~~-~_--~- |-------~~~~~~~~ " << endl;
+    cout << "                                     //.-~~~--\\\"" << endl;
+    cout << "Health: " << health << endl;
+    cout << "Damage: " << damage << endl;
 }

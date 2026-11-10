@@ -1,3 +1,4 @@
+#pragma once
 #include "Barbarian.h"
 
 
@@ -5,11 +6,16 @@
 Barbarian::~Barbarian()
 {
 }
-float Barbarian::attack(Enemy* enemy) {
-	srand(time(0));
+float Barbarian::attack(Player* player, Enemy* enemy) {
+	srand(static_cast<unsigned int>(time(0)));
 	int randomNumber = rand() % 2 + 1;
 	if (randomNumber == 1)
 	{
+		damage = player->damage;
+		enemy->takeDamage(player, damage);
+		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
+		cout << "-------------------------------------------------- Attack Hit For " << damage << "------------------------------------------------------- " << endl;
+		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 		return damage;
 	}
 	else
@@ -19,14 +25,17 @@ float Barbarian::attack(Enemy* enemy) {
 		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 		return false;
 	}
+	return 0;
 }
-void Barbarian::takeTurn(Enemy* enemy) 
+void Barbarian::takeTurn(Player* player, Enemy* enemy) 
 {
 	string input;
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 	cout << "---------------------------------------------------- Players Turn ------------------------------------------------------" << endl;
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
-	cout << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl;
+	cout << endl << endl << endl;
+	cout << "Health: " << player->health << endl;
+	cout << "Damage: " << player->damage << endl;
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 	cout << "1: Attack" << endl;
 	cout << "2: Brace" << endl;
@@ -36,16 +45,19 @@ void Barbarian::takeTurn(Enemy* enemy)
 
 	if (input == "1" || input == "Attack" || input == "1: Attack" || input == "attack")
 	{
-		float damage = attack(enemy);
-		enemy->takeDamage(damage);
+		attack(player, enemy);
+		
+		return;
 	}
 	else if (input == "2" || input == "Brace" || input == "2: Brace" || input == "brace")
 	{
 		brace(enemy);
+		return;
 	}
 	else if (input == "3" || input == "Run" || input == "run" || input == "3: Run")
 	{
 		run();
+		return;
 	}
 	else {
 		cout << "Invalid Input, Please try again!" << endl;

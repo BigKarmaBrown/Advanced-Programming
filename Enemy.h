@@ -1,4 +1,5 @@
 #pragma once
+#include "NightCycle.h"
 class Player;
 using namespace std;
 #include <iostream>
@@ -11,11 +12,14 @@ private:
 
 
 public:
-	virtual float attack(float damage, bool hit, Player* player);
-	void run();
+	virtual float attack(float damage, Player* player, NightCycle* cycle);
+	void chargeAttack(NightCycle* cycle);
 	static float brace(Player* player);
-	void taketurn(Enemy* enemy, Player* player);
-	 void takeDamage(float damage);
+	void taketurn(Enemy* enemy, Player* player, NightCycle* cycle);
+	 void takeDamage(Player* player, float damage);
+	 virtual void displayPicture();
 	float health = 0;
 	float damage = 0;
+	float defense = 0;
+	float calcDamage(float damage);
 };

@@ -8,12 +8,13 @@ using namespace std;
 #include "Dragon.h"
 #include "Goblin.h"
 #include "Gamestate.h"
+#include "NightCycle.h"
 
 
 class Menu
 {
 public:
-	void StartMenu(Player*& player, Enemy*& enemy, GameState* gameState);
-	void characterSelection(Player* player, Enemy* enemy, GameState* gameState);
-	void chooseOpponent(Player* player, Enemy* enemy, GameState* gameState);
+	void StartMenu(Player*& player, Enemy*& enemy, GameState* gameState, NightCycle* cycle);
+	void characterSelection(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle);
+	void chooseOpponent(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle);
 };

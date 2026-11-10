@@ -9,7 +9,7 @@ public:
 
 	Archer() : Player(30, 30) {};
 	~Archer();
-	float attack(Enemy* enemy) override;
-	void takeTurn(Enemy* enemy);
+	float attack(Player* player, Enemy* enemy) override;
+	void takeTurn(Player* player, Enemy* enemy);
 	void const run();
 };

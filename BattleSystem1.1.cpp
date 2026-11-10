@@ -3,6 +3,7 @@ using namespace std;
 #include "Menu.h"
 #include "Player.h"
 #include "Gamestate.h"
+#include "NightCycle.h"
 
 
 int main()
@@ -11,6 +12,8 @@ int main()
     Enemy* enemy = NULL;
     Player* player = NULL;
     GameState* gameState = NULL;
+    NightCycle* cycle = 0;
+    menu.StartMenu(player, enemy, gameState, cycle);
 
-    menu.StartMenu(player, enemy, gameState);
+
 }

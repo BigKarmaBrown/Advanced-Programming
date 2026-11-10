@@ -10,13 +10,15 @@ class GameState
 private: 
 	
 public:
-	int totalTurns;
-	bool playersTurn;
+	int totalTurns = 0;
+	bool playersTurn = false;
 
-	void GameStart(Player* player, Enemy* enemy);
+	bool GameStart(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle);
+	void displayWinner(Player* player, Enemy* enemy);
 	GameState(){};
 	//friend void displayDead(Player player);
 	void displayDead(Player* player);
+	static void showTurn(int turn);
 	
 
 	

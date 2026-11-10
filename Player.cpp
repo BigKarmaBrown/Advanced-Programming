@@ -1,10 +1,19 @@
 #include "Player.h"
 #include "Enemy.h"
-float Player::attack(Enemy* enemy)
+float Player::attack(Player* player, Enemy* enemy)
 {
 	return damage;
 }
+float Player::attack(Player* player, Enemy* enemy, float Modifier)
+{
+	return heavyDamage;
+}
 
+
+void Player::takeDamage(float damage)
+{
+	health = health - damage;
+}
 
 void const Player::run(Player* player)
 {
@@ -20,7 +29,7 @@ float Player::brace(Enemy* enemy)
 	return bracedDamage;
 }
 
-void Player::takeTurn(Enemy* enemy)
+void Player::takeTurn(Player* player, Enemy* enemy)
 {
 }
 

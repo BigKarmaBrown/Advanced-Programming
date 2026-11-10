@@ -4,11 +4,14 @@
 using namespace std;
 #include <iostream>
 class Wizard : public Player
-{
+{	
+protected:
+	bool heavyAttackedUsed = false;
 public:
 	Wizard() : Player(40, 20) {};
 	~Wizard();
-	float attack(Enemy* enemy) override;
-	void takeTurn(Enemy* enemy) override;
-	void const run();
+	float attack(Player* player, Enemy* enemy) override;
+	float attack(Player* player, Enemy* enemy, float Modifier) override;
+	void takeTurn(Player* player, Enemy* enemy) override;
+	bool run();
 };

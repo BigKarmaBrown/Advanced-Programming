@@ -4,7 +4,7 @@ using namespace std;
 #include <iostream>
 //#include <cctype>
 
-void Menu::StartMenu(Player*& player, Enemy*& enemy, GameState* gameState)
+void Menu::StartMenu(Player*& player, Enemy*& enemy, GameState* gameState, NightCycle* cycle)
 {
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
@@ -30,11 +30,11 @@ void Menu::StartMenu(Player*& player, Enemy*& enemy, GameState* gameState)
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 	system("Pause");
-	characterSelection(player,enemy, gameState);
+	characterSelection(player,enemy, gameState, cycle);
 
 }
 
-void Menu::characterSelection(Player* player, Enemy* enemy, GameState* gameState)
+void Menu::characterSelection(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle)
 {
 	string choice;
 	system("CLS");
@@ -64,23 +64,24 @@ void Menu::characterSelection(Player* player, Enemy* enemy, GameState* gameState
 	else if (choice == "1" || choice == "Barb" || choice == "Barbarian" || choice == "4: Barbarian" || choice == "barb" || choice == "barbarian")
 	{
 		player = new Barbarian();
+		
 		cout << "----------------------------------------------- Barbarian  Selected ----------------------------------------------------" << endl;
 		system("pause");
-		chooseOpponent(player, enemy, gameState);
+		chooseOpponent(player, enemy, gameState, cycle);
 	}
 	else if (choice == "2" || choice == "Wiz" || choice == "Wizard" || choice == "2: Wizard" || choice == "wiz" || choice == "wizard")
 	{
 		player = new Wizard();
 		cout << "-------------------------------------------------- Wizard  Selected ----------------------------------------------------" << endl;
 		system("pause");
-		chooseOpponent(player, enemy, gameState);
+		chooseOpponent(player, enemy, gameState, cycle);
 	}
 	else if (choice == "3" || choice == "Archer" || choice == "Arch" || choice == "3: Archer" || choice == "archer" || choice == "arch")
 	{
 		player = new Archer();
 		cout << "-------------------------------------------------- Archer  Selected ----------------------------------------------------" << endl;
 		system("pause");
-		chooseOpponent(player, enemy, gameState);
+		chooseOpponent(player, enemy, gameState, cycle);
 	}
 	else {
 		cout << "Invalid Input, Please try again!" << endl;
@@ -88,8 +89,11 @@ void Menu::characterSelection(Player* player, Enemy* enemy, GameState* gameState
 	}
 }
 
-void Menu::chooseOpponent(Player* player, Enemy* enemy, GameState* gameState)
+void Menu::chooseOpponent(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle)
 {
+	
+
+
 	string choice;
 	system("CLS");
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
@@ -114,19 +118,27 @@ void Menu::chooseOpponent(Player* player, Enemy* enemy, GameState* gameState)
 		cout << "-------------------------------------------------- returning -----------------------------------------------------------" << endl;
 		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 		system("pause");
-		gameState->GameStart(player, enemy);
+		
 		return;
 	}
 	else if (choice == "1" || choice == "Goblin" || choice == "goblin" || choice == "Gob" || choice == "gob") {
 		enemy = new Goblin();
 		cout << "-------------------------------------------------- Goblin  Selected ----------------------------------------------------" << endl;
 		system("pause");
+		bool wonGame = gameState->GameStart(player, enemy, gameState, cycle);
+		if (wonGame == true) {
+			return;
+		}
+		
 	}
 	else if (choice == "2" || choice == "Dragon" || choice == "dragon" || choice == "Drag" || choice == "drag") {
 		enemy = new Dragon();
 		cout << "-------------------------------------------------- Dragon  Selected ----------------------------------------------------" << endl;
 		system("pause");
-		gameState->GameStart(player, enemy);
+		bool wonGame = gameState->GameStart(player, enemy, gameState , cycle);
+		if (wonGame == true) {
+			return;
+		}
 			
 		
 	}
