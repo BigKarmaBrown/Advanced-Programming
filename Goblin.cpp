@@ -10,20 +10,31 @@ Goblin::Goblin()
 Goblin::~Goblin()
 {
 }
-float Goblin::attack(float damage,  Player* player, NightCycle* cycle)
-{
+float Goblin::attack(float damage, Player* player, NightCycle* cycle) {
 	srand(time(0));
-	int randomNumber = rand() % 10 + 1;
-	if (randomNumber <= 6)
+	int randomNumber = rand() % 2 + 1;
+	float multiplier = 0;
+	if (cycle->calcDay(cycle) == true) {
+		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
+		cout << "----------------------------------------------- DRAGON IS ENRANGED ----------------------------------------------------" << endl;
+		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
+		multiplier = 1.5;
+		cycle++;
+	}
+	else {
+		multiplier = 1;
+	}
+
+	if (randomNumber == 1)
 	{
-		return 10;
+		return damage * multiplier;
 	}
 	else
 	{
 		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
-		cout << "---------------------------------------------- Goblins Attack Missed ---------------------------------------------------" << endl;
+		cout << "-------------------------------------------------- Attack Missed -------------------------------------------------------" << endl;
 		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
-		return 0;
+		return false;
 	}
 }
 

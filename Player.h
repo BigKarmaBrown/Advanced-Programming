@@ -1,8 +1,10 @@
 #pragma once
 class Enemy;
 using namespace std;
+#include "GameState.h"
+#include "NightCycle.h"
 #include <iostream>
-class Player
+class  Player
 {
 private:
 	/*static*/ int killed = 0;
@@ -24,7 +26,7 @@ public:
 		this->health = health;
 	}
 	float health = 0;
-	virtual void takeTurn(Player* player, Enemy* enemy);
+	virtual battleResult takeTurn(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle);
 	virtual float attack(Player* player, Enemy* enemy);
 	virtual float attack(Player* player, Enemy* enemy, float Modifier);
 	

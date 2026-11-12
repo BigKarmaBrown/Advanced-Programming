@@ -21,5 +21,5 @@ public:
 	float health = 0;
 	float damage = 0;
 	float defense = 0;
-	float calcDamage(float damage);
+	//float calcDamage(float damage);
 };

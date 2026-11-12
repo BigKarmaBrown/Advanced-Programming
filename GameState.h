@@ -1,10 +1,12 @@
 #pragma once
 #include "Enemy.h"
-#include "Player.h"
 using namespace std;
 #include <iostream>
+class Player;
 
-
+enum class battleResult{
+		playerWin, playerLose, playerRan, playerMidFight
+	};
 class GameState
 {
 private: 
@@ -12,8 +14,9 @@ private:
 public:
 	int totalTurns = 0;
 	bool playersTurn = false;
+	
 
-	bool GameStart(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle);
+	battleResult GameStart(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle);
 	void displayWinner(Player* player, Enemy* enemy);
 	GameState(){};
 	//friend void displayDead(Player player);

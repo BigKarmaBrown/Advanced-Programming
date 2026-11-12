@@ -5,13 +5,14 @@ using namespace std;
 
 class NightCycle
 {
-private:
+protected:
 	int night;
 public:
 	NightCycle(int night = 0) : night(night){}
 
 	NightCycle operator+(const NightCycle& obj) {
 		NightCycle temp;
+		
 		temp.night = obj.night + night;
 	}
 	

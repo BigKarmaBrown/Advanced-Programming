@@ -56,7 +56,7 @@ float Wizard::attack(Player* player,Enemy* enemy, float Modifier)
 	}
 }
 
-void Wizard::takeTurn(Player* player, Enemy* enemy) 
+battleResult Wizard::takeTurn(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle)
 {
 	string input;
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
@@ -77,35 +77,36 @@ void Wizard::takeTurn(Player* player, Enemy* enemy)
 	{
 		attack(player, enemy);
 		
-		return;
+		return battleResult::playerMidFight;
 	}
 	else if (input == "2" || input == "Heavy" || input == "2: Heavy Attack" || input == "H")
 	{
 		attack(player, enemy);
 		
-		return;
+		return battleResult::playerMidFight;
 	}
 	else if (input == "3" || input == "Brace" || input == "3: Brace" || input == "brace")
 	{
 		brace(enemy);
-		return;
+		return battleResult::playerMidFight;
 	}
 	else if (input == "4" || input == "Run" || input == "run" || input == "4: Run")
 	{
 		run();
-		return;
+		return battleResult::playerRan;
 	}
 	else {
 		cout << "Invalid Input, Please try again!" << endl;
-		return;
+		return battleResult::playerMidFight;
 	}
 
 
 }
-bool  Wizard::run() {
+battleResult  Wizard::run() {
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 	cout << "------------------------------------------------ Wizard Ran from Fight -------------------------------------------------" << endl;
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 	heavyAttackedUsed = false;
-	return false;
+	health = maxHealth;
+	return battleResult::playerRan;
 }

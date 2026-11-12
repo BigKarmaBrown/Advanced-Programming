@@ -7,13 +7,12 @@
 using namespace std;
 #include <iostream>
 
-bool GameState::GameStart(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle)
+battleResult GameState::GameStart(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle)
 {
 	system("CLS");
 	srand(static_cast<unsigned int>(time(0)));
 	int whosTurn = rand() % 2 + 1;
 
-	
 
 	void (*showTurns)(int);
 	showTurns = &GameState::showTurn;
@@ -37,10 +36,10 @@ bool GameState::GameStart(Player* player, Enemy* enemy, GameState* gameState, Ni
 			try {
 				displayWinner(player, enemy);
 			if (player->health <= 0) {
-				return false;
+				return battleResult::playerLose;
 			}
-			return true;
-				break;
+			return battleResult::playerWin;
+				
 			}
 			catch(ErrorHandler e)
 			{
@@ -52,7 +51,10 @@ bool GameState::GameStart(Player* player, Enemy* enemy, GameState* gameState, Ni
 		}
 		else if (whosTurn == 1)
 		{
-			player->takeTurn(player, enemy);
+			 auto turn = player->takeTurn(player, enemy, gameState, cycle);
+			 if (turn == battleResult::playerRan) {
+				 return battleResult::playerRan;
+			 }
 			system("Pause");
 			system("CLS");
 			enemy->displayPicture();
@@ -86,10 +88,19 @@ void GameState::displayWinner(Player* player, Enemy* enemy) {
 		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 		cout << "------------------------------------------------------You Won The Fight-------------------------------------------------" << endl;
 		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
-		
+
+		system("Pause");
+
+		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
+		cout << "----------------------------------------------- Health increased by 10 -------------------------------------------------" << endl;
+		cout << "----------------------------------------------- Damage increased by 10 -------------------------------------------------" << endl;
+		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
+
+		player->damage += 10;
+		player->health += 10;
 		displayDead(player);
 		delete enemy;
-		enemy = NULL;
+	
 		return;
 	}
 	else if (player->health <= 0)
@@ -97,10 +108,16 @@ void GameState::displayWinner(Player* player, Enemy* enemy) {
 		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 		cout << "-----------------------------------------------------You Lost The Fight-------------------------------------------------" << endl;
 		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
-		
+		 
+		system("Pause");
+
+		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
+		cout << "------------------------------------------------------ GAME OVER -------------------------------------------------------" << endl;
+		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
+
 		displayDead(player);
 		delete player;
-		player = NULL;
+		
 		return;
 	}
 }

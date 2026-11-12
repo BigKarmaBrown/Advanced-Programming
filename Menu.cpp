@@ -91,11 +91,17 @@ void Menu::characterSelection(Player* player, Enemy* enemy, GameState* gameState
 
 void Menu::chooseOpponent(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle)
 {
-	
+	system("CLS");
+	battleResult result = gameState->GameStart(player, enemy, gameState, cycle);
+	if (result == battleResult::playerRan) {
+		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
+		cout << "--------------------------------------------------- Ran Succesfully ----------------------------------------------------" << endl;
+		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
+	}
 
 
 	string choice;
-	system("CLS");
+	
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
@@ -118,15 +124,22 @@ void Menu::chooseOpponent(Player* player, Enemy* enemy, GameState* gameState, Ni
 		cout << "-------------------------------------------------- returning -----------------------------------------------------------" << endl;
 		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 		system("pause");
-		
+		delete player;
+		system("CLS");
+		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
+		cout << "----------------------------------------------- Player deleted ---------------------------------------------------------" << endl;
+		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
+		system("pause");
 		return;
 	}
 	else if (choice == "1" || choice == "Goblin" || choice == "goblin" || choice == "Gob" || choice == "gob") {
 		enemy = new Goblin();
 		cout << "-------------------------------------------------- Goblin  Selected ----------------------------------------------------" << endl;
 		system("pause");
-		bool wonGame = gameState->GameStart(player, enemy, gameState, cycle);
-		if (wonGame == true) {
+		battleResult result = gameState->GameStart(player, enemy, gameState, cycle);
+		
+		
+		if (result == battleResult::playerLose || result == battleResult::playerWin ) {
 			return;
 		}
 		
@@ -135,8 +148,9 @@ void Menu::chooseOpponent(Player* player, Enemy* enemy, GameState* gameState, Ni
 		enemy = new Dragon();
 		cout << "-------------------------------------------------- Dragon  Selected ----------------------------------------------------" << endl;
 		system("pause");
-		bool wonGame = gameState->GameStart(player, enemy, gameState , cycle);
-		if (wonGame == true) {
+		battleResult result = gameState->GameStart(player, enemy, gameState, cycle);
+
+		if (result == battleResult::playerLose || result == battleResult::playerWin ) {
 			return;
 		}
 			

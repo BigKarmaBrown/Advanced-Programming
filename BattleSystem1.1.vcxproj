@@ -144,9 +144,11 @@
     <ClCompile Include="BattleSystem1.1.cpp" />
     <ClCompile Include="Dragon.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="ErrorHandler.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="Goblin.cpp" />
     <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="NightCycle.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Wizard.cpp" />
   </ItemGroup>
@@ -155,9 +157,11 @@
     <ClInclude Include="Barbarian.h" />
     <ClInclude Include="Dragon.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="ErrorHandler.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="Goblin.h" />
     <ClInclude Include="Menu.h" />
+    <ClInclude Include="NightCycle.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Wizard.h" />
   </ItemGroup>

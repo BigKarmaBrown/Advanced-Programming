@@ -36,12 +36,10 @@ void Enemy::taketurn(Enemy* enemy, Player* player,NightCycle* cycle)
 	switch (randomNumber)
 	{
 	case 0: {
-		//cout << "ENEMY HIT YOU FOR " << enemy->damage << " DAMAGE !!" << endl;
-				enemy->attack(enemy->damage, player, cycle);
-				float damageTemp = enemy->attack(enemy->damage, player, cycle);
-				player->takeDamage(damageTemp);
-				return;
-				break;
+		float damageTemp = enemy->attack(enemy->damage, player, cycle);
+		player->takeDamage(damageTemp);
+		return;
+		break;
 	}
 		
 	case 1:

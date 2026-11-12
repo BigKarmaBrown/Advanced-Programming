@@ -7,7 +7,7 @@ using namespace std;
 #include "Enemy.h"
 #include "Dragon.h"
 #include "Goblin.h"
-#include "Gamestate.h"
+#include "GameState.h"
 #include "NightCycle.h"
 
 

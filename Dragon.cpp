@@ -27,7 +27,7 @@ float Dragon::attack(float damage, Player* player, NightCycle* cycle) {
 
 	if (randomNumber == 1)
 	{
-		return 20 * multiplier;
+		return damage * multiplier;
 	}
 	else
 	{

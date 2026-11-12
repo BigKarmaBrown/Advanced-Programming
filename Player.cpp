@@ -29,7 +29,8 @@ float Player::brace(Enemy* enemy)
 	return bracedDamage;
 }
 
-void Player::takeTurn(Player* player, Enemy* enemy)
+battleResult Player::takeTurn(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle)
 {
+	return battleResult::playerMidFight;
 }
 
