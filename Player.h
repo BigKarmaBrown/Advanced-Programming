@@ -10,23 +10,25 @@ private:
 	/*static*/ int killed = 0;
 protected:
 	
-	float maxHealth = 0;
+	
 	
 	int range = 0;
 	//int attackChance;
 	
 public:
 	void takeDamage(float damage);
-	void const run(Player* player);
+	void const run(Player* player, GameState* gameState);
 	float brace(Enemy* enemy);
 	float damage = 0;
 	float heavyDamage = 0;
-	Player(float damage, float health) : damage(damage), health(health) {
+	Player(float damage, float health, float(maxHealth)) : damage(damage), health(health), maxHealth(maxHealth) {
 		this->damage = damage;
 		this->health = health;
+		this->maxHealth = maxHealth;
 	}
+	float maxHealth = 0;
 	float health = 0;
-	virtual battleResult takeTurn(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle);
+	virtual GameState::battleResult takeTurn(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle);
 	virtual float attack(Player* player, Enemy* enemy);
 	virtual float attack(Player* player, Enemy* enemy, float Modifier);
 	

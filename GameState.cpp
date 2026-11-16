@@ -7,12 +7,13 @@
 using namespace std;
 #include <iostream>
 
-battleResult GameState::GameStart(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle)
+
+GameState::battleResult GameState::GameStart(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle)
 {
 	system("CLS");
 	srand(static_cast<unsigned int>(time(0)));
 	int whosTurn = rand() % 2 + 1;
-
+	//battleResult::playerMidFight;
 
 	void (*showTurns)(int);
 	showTurns = &GameState::showTurn;
@@ -31,7 +32,10 @@ battleResult GameState::GameStart(Player* player, Enemy* enemy, GameState* gameS
 	system("CLS");
 	enemy->displayPicture();
 	while (true){
-
+		if (playerRanBool == true) {
+			return battleResult::playerRan;
+		}
+		
 		if (player->health <= 0 || enemy->health <= 0) {
 			try {
 				displayWinner(player, enemy);
@@ -52,6 +56,9 @@ battleResult GameState::GameStart(Player* player, Enemy* enemy, GameState* gameS
 		else if (whosTurn == 1)
 		{
 			 auto turn = player->takeTurn(player, enemy, gameState, cycle);
+			 if (playerRanBool == true) {
+				 return battleResult::playerRan;
+			 }
 			 if (turn == battleResult::playerRan) {
 				 return battleResult::playerRan;
 			 }
@@ -72,7 +79,7 @@ battleResult GameState::GameStart(Player* player, Enemy* enemy, GameState* gameS
 			
 		}
 		else {
-			throw(false); 
+			//throw(...); 
 
 			
 		}
@@ -132,10 +139,14 @@ void GameState::displayDead(Player* player)
 {
  try {
 		if (turn == 1) {
-				cout << "player turn" << endl;
+			cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
+			cout << "--------------------------------------------------------- Players Turn -------------------------------------------------" << endl;
+			cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 			}
 			else if (turn == 2) {
-				cout << "enemys turn" << endl;
+			cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
+			cout << "--------------------------------------------------------- Enemys Turn --------------------------------------------------" << endl;
+			cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 			}
 			else 
 			{
@@ -146,5 +157,28 @@ void GameState::displayDead(Player* player)
 		 e.cantAcknowledgeTurn();
 	 }
 }
+
+ void GameState::DisplayBattleHistory()
+ {
+	 cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
+	 cout << "-------------------------------------------------------- Battle History ------------------------------------------------" << endl;
+	 cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
+
+	 while (battleHistory->Size() > 0) {
+	
+		 BattleMove* move = battleHistory->Remove();
+	 
+		 cout << "Turn Number: " << move->turnNum << endl;
+		cout << "Person: " << move->person << endl;
+		cout << "Move: " << move->move << endl;
+		 if (move->damage > 0) {
+		cout << "Damage: " << move->damage << endl;
+		 }
+
+	 delete move;
+	 }
+	
+	
+ }
 
 

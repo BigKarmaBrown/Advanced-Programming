@@ -92,14 +92,14 @@ void Menu::characterSelection(Player* player, Enemy* enemy, GameState* gameState
 void Menu::chooseOpponent(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle)
 {
 	system("CLS");
-	battleResult result = gameState->GameStart(player, enemy, gameState, cycle);
-	if (result == battleResult::playerRan) {
-		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
+	delete gameState;
+	gameState = new GameState();
+	if (gameState->playerRanBool == true) {
+			cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 		cout << "--------------------------------------------------- Ran Succesfully ----------------------------------------------------" << endl;
 		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
+		system("Pause");
 	}
-
-
 	string choice;
 	
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
@@ -116,6 +116,10 @@ void Menu::chooseOpponent(Player* player, Enemy* enemy, GameState* gameState, Ni
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 	cout << "-------------------------------------------------- 3: Return -----------------------------------------------------------" << endl;
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
+	
+	
+	
+	
 
 	cin >> choice;
 	if (choice == "QUIT" || choice == "Quit" || choice == "3" || choice == "3: Quit")
@@ -134,28 +138,40 @@ void Menu::chooseOpponent(Player* player, Enemy* enemy, GameState* gameState, Ni
 	}
 	else if (choice == "1" || choice == "Goblin" || choice == "goblin" || choice == "Gob" || choice == "gob") {
 		enemy = new Goblin();
+		cycle = new NightCycle();
 		cout << "-------------------------------------------------- Goblin  Selected ----------------------------------------------------" << endl;
+		gameState->playerRanBool = false;
 		system("pause");
-		battleResult result = gameState->GameStart(player, enemy, gameState, cycle);
 		
-		
-		if (result == battleResult::playerLose || result == battleResult::playerWin ) {
+		GameState::battleResult result = gameState->GameStart(player, enemy, gameState, cycle);
+		if (result == GameState::battleResult::playerRan || result == GameState::battleResult::playerLose || result == GameState::battleResult::playerWin)
+		{
+			delete enemy;
+			enemy = nullptr;
+			chooseOpponent(player, enemy, gameState, cycle);
 			return;
 		}
-		
+	
 	}
 	else if (choice == "2" || choice == "Dragon" || choice == "dragon" || choice == "Drag" || choice == "drag") {
 		enemy = new Dragon();
+		cycle = new NightCycle();
+		gameState->playerRanBool = false;
 		cout << "-------------------------------------------------- Dragon  Selected ----------------------------------------------------" << endl;
 		system("pause");
-		battleResult result = gameState->GameStart(player, enemy, gameState, cycle);
-
-		if (result == battleResult::playerLose || result == battleResult::playerWin ) {
+		GameState::battleResult result = gameState->GameStart(player, enemy, gameState, cycle);
+		if (result == GameState::battleResult::playerRan || result == GameState::battleResult::playerLose || result == GameState::battleResult::playerWin)
+		{
+			delete enemy;
+			enemy = nullptr;
+			chooseOpponent(player, enemy, gameState, cycle);
 			return;
 		}
+	
 			
 		
 	}
+	
 	else {
 		cout << "Invalid Input, Please try again!" << endl;
 		return;

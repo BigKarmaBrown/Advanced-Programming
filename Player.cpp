@@ -15,9 +15,10 @@ void Player::takeDamage(float damage)
 	health = health - damage;
 }
 
-void const Player::run(Player* player)
+void const Player::run(Player* player, GameState* gameState)
 {
 	health = maxHealth;
+	gameState->playerRanBool = true;
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 	cout << "----------------------------------------------- Health Fully Restored --------------------------------------------------" << endl;
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
@@ -29,8 +30,8 @@ float Player::brace(Enemy* enemy)
 	return bracedDamage;
 }
 
-battleResult Player::takeTurn(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle)
+GameState::battleResult Player::takeTurn(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle)
 {
-	return battleResult::playerMidFight;
+	return GameState::battleResult::playerMidFight;
 }
 

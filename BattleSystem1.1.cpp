@@ -12,6 +12,7 @@ int main()
     Enemy* enemy = NULL;
     Player* player = NULL;
     GameState* gameState = NULL;
+    GameState::battleResult::playerNotInFight;
     NightCycle* cycle = 0;
     menu.StartMenu(player, enemy, gameState, cycle);
 

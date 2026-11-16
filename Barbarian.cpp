@@ -55,13 +55,10 @@ float Barbarian::attack(Player* player, Enemy* enemy, float Modifier)
 		return false;
 	}
 }
-battleResult Barbarian::takeTurn(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle)
+GameState::battleResult Barbarian::takeTurn(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle)
 {
 	string input;
-	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
-	cout << "---------------------------------------------------- Players Turn ------------------------------------------------------" << endl;
-	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
-	cout << endl << endl << endl;
+
 	cout << "Health: " << player->health << endl;
 	cout << "Damage: " << player->damage << endl;
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
@@ -75,28 +72,29 @@ battleResult Barbarian::takeTurn(Player* player, Enemy* enemy, GameState* gameSt
 	{
 		attack(player, enemy);
 		
-		return battleResult::playerMidFight;
+		return GameState::battleResult::playerMidFight;
 	}
 	else if (input == "2" || input == "Brace" || input == "2: Brace" || input == "brace")
 	{
 		brace(enemy);
-		return battleResult::playerMidFight;
+		return GameState::battleResult::playerMidFight;
 	}
 	else if (input == "3" || input == "Run" || input == "run" || input == "3: Run")
 	{
-		run();
-		return battleResult::playerRan;
+		run(player, gameState);
+		return GameState::battleResult::playerRan;
 	}
 	else {
 		cout << "Invalid Input, Please try again!" << endl;
-		return battleResult::playerMidFight;
+		return GameState::battleResult::playerMidFight;
 	}
 }
-battleResult  Barbarian::run() {
+GameState::battleResult  Barbarian::run(Player* player, GameState* gameState) {
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
-	cout << "------------------------------------------------ Barbarian Ran from Fight -------------------------------------------------" << endl;
+	cout << "------------------------------------------------ Barbarian Ran from Fight ----------------------------------------------" << endl;
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 	heavyAttackedUsed = false;
+	gameState->playerRan;
 	health = maxHealth;
-	return battleResult::playerRan;
+	return GameState::battleResult::playerRan;
 }

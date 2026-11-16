@@ -4,7 +4,7 @@ Wizard::~Wizard()
 {
 }
 
-float Wizard::attack(Player* player,Enemy* enemy) 
+float Wizard::attack(Player* player, Enemy* enemy)
 {
 	srand(static_cast<unsigned int>(time(0)));
 	int randomNumber = rand() % 2 + 1;
@@ -16,6 +16,7 @@ float Wizard::attack(Player* player,Enemy* enemy)
 		cout << "-------------------------------------------------- Attack Hit For " << damage << "------------------------------------------------------- " << endl;
 		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 		heavyAttackedUsed = false;
+		
 		return damage;
 	}
 	else
@@ -35,6 +36,7 @@ float Wizard::attack(Player* player,Enemy* enemy, float Modifier)
 		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 		cout << "---------------------------------------------- Heavy Attack On Cooldown ------------------------------------------------" << endl;
 		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
+		
 		return 0;
 	}
 	if (randomNumber == 1)
@@ -52,17 +54,14 @@ float Wizard::attack(Player* player,Enemy* enemy, float Modifier)
 		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 		cout << "-------------------------------------------------- Attack Missed -------------------------------------------------------" << endl;
 		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
-		return false;
+		return 0;
 	}
 }
 
-battleResult Wizard::takeTurn(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle)
+GameState::battleResult Wizard::takeTurn(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle)
 {
 	string input;
-	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
-	cout << "---------------------------------------------------- Players Turn ------------------------------------------------------" << endl;
-	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
-	cout << endl   << endl << endl;
+
 	cout << "Health: " << player->health << endl;
 	cout << "Damage: " << player->damage << endl;
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
@@ -76,37 +75,48 @@ battleResult Wizard::takeTurn(Player* player, Enemy* enemy, GameState* gameState
 	if (input == "1" || input == "Attack" || input == "1: Attack" || input == "attack")
 	{
 		attack(player, enemy);
-		
-		return battleResult::playerMidFight;
+		GameState::BattleMove* newMove = new GameState::BattleMove{
+			 gameState->totalTurns +1,"Wizard",GameState::attack,damage
+		};
+		return GameState::battleResult::playerMidFight;
 	}
 	else if (input == "2" || input == "Heavy" || input == "2: Heavy Attack" || input == "H")
 	{
-		attack(player, enemy);
-		
-		return battleResult::playerMidFight;
+		attack(player, enemy, 2);
+		GameState::BattleMove* newMove = new GameState::BattleMove{
+		 gameState->totalTurns + 1,"Wizard",GameState::attack,damage
+		};
+		return GameState::battleResult::playerMidFight;
 	}
 	else if (input == "3" || input == "Brace" || input == "3: Brace" || input == "brace")
 	{
 		brace(enemy);
-		return battleResult::playerMidFight;
+		GameState::BattleMove* newMove = new GameState::BattleMove{
+		 gameState->totalTurns + 1,"Wizard",GameState::brace,0
+		};
+		return GameState::battleResult::playerMidFight;
 	}
 	else if (input == "4" || input == "Run" || input == "run" || input == "4: Run")
 	{
-		run();
-		return battleResult::playerRan;
+		run(player, gameState);
+		GameState::BattleMove* newMove = new GameState::BattleMove{
+		 gameState->totalTurns + 1,"Wizard",GameState::run,0
+		};
+		return GameState::battleResult::playerRan;
 	}
 	else {
 		cout << "Invalid Input, Please try again!" << endl;
-		return battleResult::playerMidFight;
+		return GameState::battleResult::playerMidFight;
 	}
 
 
 }
-battleResult  Wizard::run() {
+GameState::battleResult  Wizard::run(Player* player, GameState* gameState) {
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 	cout << "------------------------------------------------ Wizard Ran from Fight -------------------------------------------------" << endl;
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 	heavyAttackedUsed = false;
 	health = maxHealth;
-	return battleResult::playerRan;
+	gameState->playerRan;
+	return GameState::battleResult::playerRan;
 }
