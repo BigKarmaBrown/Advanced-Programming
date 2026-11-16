@@ -42,6 +42,7 @@ GameState::battleResult GameState::GameStart(Player* player, Enemy* enemy, GameS
 			if (player->health <= 0) {
 				return battleResult::playerLose;
 			}
+
 			return battleResult::playerWin;
 				
 			}
@@ -70,7 +71,7 @@ GameState::battleResult GameState::GameStart(Player* player, Enemy* enemy, GameS
 		}
 	
 		else if (whosTurn == 2) {
-			enemy->taketurn(enemy, player, cycle);
+			enemy->taketurn(enemy, player, cycle, gameState);
 			system("Pause");
 			system("CLS");
 			enemy->displayPicture();
@@ -104,26 +105,30 @@ void GameState::displayWinner(Player* player, Enemy* enemy) {
 		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 
 		player->damage += 10;
-		player->health += 10;
+		player->maxHealth += 10;
 		displayDead(player);
-		delete enemy;
+		DisplayBattleHistory();
+		system("Pause");
+		//delete enemy;
 	
 		return;
 	}
 	else if (player->health <= 0)
 	{
 		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
-		cout << "-----------------------------------------------------You Lost The Fight-------------------------------------------------" << endl;
+		cout << "---------------------------------------------------- You Lost The Fight ------------------------------------------------" << endl;
 		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 		 
 		system("Pause");
 
 		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
-		cout << "------------------------------------------------------ GAME OVER -------------------------------------------------------" << endl;
+		cout << "-------------------------------------------------------- GAME OVER -----------------------------------------------------" << endl;
 		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 
 		displayDead(player);
-		delete player;
+		//delete player;
+		DisplayBattleHistory();
+		system("Pause");
 		
 		return;
 	}
@@ -160,6 +165,8 @@ void GameState::displayDead(Player* player)
 
  void GameState::DisplayBattleHistory()
  {
+	 system("Pause");
+	 system("CLS");
 	 cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 	 cout << "-------------------------------------------------------- Battle History ------------------------------------------------" << endl;
 	 cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
@@ -169,16 +176,23 @@ void GameState::displayDead(Player* player)
 		 BattleMove* move = battleHistory->Remove();
 	 
 		 cout << "Turn Number: " << move->turnNum << endl;
+		 cout << endl;
 		cout << "Person: " << move->person << endl;
 		cout << "Move: " << move->move << endl;
 		 if (move->damage > 0) {
 		cout << "Damage: " << move->damage << endl;
 		 }
+		 cout << endl << endl;
 
 	 delete move;
 	 }
 	
 	
+ }
+
+ GameState::GameState(PriorityQueue<BattleMove>* history)
+ {
+	 battleHistory = history;
  }
 
 

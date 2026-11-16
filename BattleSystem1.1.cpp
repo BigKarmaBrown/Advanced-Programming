@@ -4,6 +4,7 @@ using namespace std;
 #include "Player.h"
 #include "Gamestate.h"
 #include "NightCycle.h"
+#include "PriorityQueue.h"
 
 
 int main()
@@ -11,10 +12,12 @@ int main()
     Menu menu;
     Enemy* enemy = NULL;
     Player* player = NULL;
-    GameState* gameState = NULL;
+    GameState* result = NULL;
     GameState::battleResult::playerNotInFight;
     NightCycle* cycle = 0;
-    menu.StartMenu(player, enemy, gameState, cycle);
+    PriorityQueue<GameState::BattleMove>battleHistory(111);
+    GameState gameState(&battleHistory);
+    menu.StartMenu(player, enemy, result, cycle, &battleHistory);
 
 
 }

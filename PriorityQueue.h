@@ -28,30 +28,28 @@ public:
 template<class t>
 PriorityQueue<t>::~PriorityQueue()
 {
+	for (int i = 0; i < count; i++) {
+		delete data[i];
+	}
 	delete[] data;
 }
 
 template<class t>
 void PriorityQueue<t>::Insert(t* item)
 {
-	int temp = 0;
-	if (IsEmpty() == true) {
-		data[0] = item;
-		count++;
-	}
-	else {
-		int j = 0;
-		for (int j = count - 1; j >= 0; j--) {
-			if (*item > *data[j]) {
-				data[j + 1] = data[j];
-			}
-			else break;
+    if (IsFull())
+        return;
 
-		}
-		data[j + 1] = item;
-		count++;
+    int j = count - 1;
 
-	}
+    while (j >= 0 && *item > *data[j])
+    {
+        data[j + 1] = data[j];
+        j--;
+    }
+
+    data[j + 1] = item;
+    count++;
 }
 template<class t>
 bool PriorityQueue<t>::IsEmpty()

@@ -4,7 +4,7 @@ using namespace std;
 #include <iostream>
 //#include <cctype>
 
-void Menu::StartMenu(Player*& player, Enemy*& enemy, GameState* gameState, NightCycle* cycle)
+void Menu::StartMenu(Player*& player, Enemy*& enemy, GameState* gameState, NightCycle* cycle, PriorityQueue<GameState::BattleMove>* battleHistory)
 {
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
@@ -30,11 +30,11 @@ void Menu::StartMenu(Player*& player, Enemy*& enemy, GameState* gameState, Night
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 	system("Pause");
-	characterSelection(player,enemy, gameState, cycle);
+	characterSelection(player,enemy, gameState, cycle, battleHistory);
 
 }
 
-void Menu::characterSelection(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle)
+void Menu::characterSelection(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle, PriorityQueue<GameState::BattleMove>* battleHistory)
 {
 	string choice;
 	system("CLS");
@@ -67,21 +67,21 @@ void Menu::characterSelection(Player* player, Enemy* enemy, GameState* gameState
 		
 		cout << "----------------------------------------------- Barbarian  Selected ----------------------------------------------------" << endl;
 		system("pause");
-		chooseOpponent(player, enemy, gameState, cycle);
+		chooseOpponent(player, enemy, gameState, cycle, battleHistory);
 	}
 	else if (choice == "2" || choice == "Wiz" || choice == "Wizard" || choice == "2: Wizard" || choice == "wiz" || choice == "wizard")
 	{
 		player = new Wizard();
 		cout << "-------------------------------------------------- Wizard  Selected ----------------------------------------------------" << endl;
 		system("pause");
-		chooseOpponent(player, enemy, gameState, cycle);
+		chooseOpponent(player, enemy, gameState, cycle, battleHistory);
 	}
 	else if (choice == "3" || choice == "Archer" || choice == "Arch" || choice == "3: Archer" || choice == "archer" || choice == "arch")
 	{
 		player = new Archer();
 		cout << "-------------------------------------------------- Archer  Selected ----------------------------------------------------" << endl;
 		system("pause");
-		chooseOpponent(player, enemy, gameState, cycle);
+		chooseOpponent(player, enemy, gameState, cycle, battleHistory);
 	}
 	else {
 		cout << "Invalid Input, Please try again!" << endl;
@@ -89,11 +89,12 @@ void Menu::characterSelection(Player* player, Enemy* enemy, GameState* gameState
 	}
 }
 
-void Menu::chooseOpponent(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle)
+void Menu::chooseOpponent(Player* player, Enemy* enemy, GameState*& gameState, NightCycle* cycle, PriorityQueue<GameState::BattleMove>* battleHistory)
 {
 	system("CLS");
 	delete gameState;
-	gameState = new GameState();
+	player->health = player->maxHealth;
+	gameState = new GameState(battleHistory);
 	if (gameState->playerRanBool == true) {
 			cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 		cout << "--------------------------------------------------- Ran Succesfully ----------------------------------------------------" << endl;
@@ -148,7 +149,7 @@ void Menu::chooseOpponent(Player* player, Enemy* enemy, GameState* gameState, Ni
 		{
 			delete enemy;
 			enemy = nullptr;
-			chooseOpponent(player, enemy, gameState, cycle);
+			chooseOpponent(player, enemy, gameState, cycle, battleHistory);
 			return;
 		}
 	
@@ -164,7 +165,7 @@ void Menu::chooseOpponent(Player* player, Enemy* enemy, GameState* gameState, Ni
 		{
 			delete enemy;
 			enemy = nullptr;
-			chooseOpponent(player, enemy, gameState, cycle);
+			chooseOpponent(player, enemy, gameState, cycle, battleHistory);
 			return;
 		}
 	

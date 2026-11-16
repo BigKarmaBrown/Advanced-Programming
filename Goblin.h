@@ -9,4 +9,6 @@ public:
 	~Goblin();
 	float attack(float damage, Player* player, NightCycle* cycle) override;
 	void displayPicture() override;
+	string displayName() override;
+	
 };

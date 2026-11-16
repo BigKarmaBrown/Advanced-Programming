@@ -9,6 +9,7 @@ class Archer : public Player
 {
 protected:
 	bool heavyAttackedUsed = false;
+	bool hitting = false;
 public:
 	Archer() : Player(30, 30, 30) {};
 	~Archer();

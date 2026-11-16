@@ -5,6 +5,7 @@
 using namespace std;
 #include <iostream>
 class Player;
+class Enemy;
 
 
 class GameState
@@ -22,19 +23,26 @@ enum battleResult{
 
 	battleResult GameStart(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle);
 	void displayWinner(Player* player, Enemy* enemy);
-	GameState(){};
+	//GameState(){};
 	//friend void displayDead(Player player);
 	void displayDead(Player* player);
 	static void showTurn(int turn);
-	
+	void DisplayBattleHistory();
 	enum Move {
 		attack, heavyAttack, run, brace 
 	};
 	struct BattleMove {
 		int turnNum;
 		string person;
-		Move move;
+		string move;
 		float damage;
+
+		bool operator>(const BattleMove& other) const
+		{
+			return turnNum > other.turnNum;
+		}
+
 	};
+	GameState(PriorityQueue<BattleMove>* history);
 	PriorityQueue<BattleMove>* battleHistory;
 };

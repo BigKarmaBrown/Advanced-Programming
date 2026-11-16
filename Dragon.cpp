@@ -61,3 +61,8 @@ void Dragon::displayPicture()
     cout << "Health: " << health << endl;
     cout << "Damage: " << damage << endl;
 }
+
+string Dragon::displayName()
+{
+    return "Dragon";
+}

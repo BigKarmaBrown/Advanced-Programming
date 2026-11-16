@@ -53,5 +53,12 @@ void Goblin::displayPicture()
 	cout << "      /       '----'       \\\" "<< endl;
 	cout << "Health: " << health << endl;
 	cout << "Damage: " << damage << endl;
+	cout << endl << endl << endl;
 
+
+}
+
+string Goblin::displayName()
+{
+	return "Goblin";
 }

@@ -4,11 +4,13 @@
 #include "GameState.h"
 #include "NightCycle.h"
 using namespace std;
+class GameState;
 #include <iostream>
 class Barbarian : public Player
 {
 protected:
 	bool heavyAttackedUsed = false;
+	bool hitting = false;
 public:
 	Barbarian() : Player(15, 50, 50) {};
 	~Barbarian();

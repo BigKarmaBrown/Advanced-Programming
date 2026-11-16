@@ -1,6 +1,7 @@
 #include "Enemy.h"
 #include "Player.h"
-
+#include "GameState.h"
+#include "NightCycle.h"
 
 using namespace std;
 
@@ -27,7 +28,7 @@ float Enemy::brace(Player* player)
 	
 }
 
-void Enemy::taketurn(Enemy* enemy, Player* player,NightCycle* cycle)
+void Enemy::taketurn(Enemy* enemy, Player* player,NightCycle* cycle, GameState* gameState)
 {
 	srand(static_cast<unsigned int>(time(0)));
 	int randomNumber = rand() % 3 + 1;
@@ -38,19 +39,39 @@ void Enemy::taketurn(Enemy* enemy, Player* player,NightCycle* cycle)
 	case 0: {
 		float damageTemp = enemy->attack(enemy->damage, player, cycle);
 		player->takeDamage(damageTemp);
+
+		GameState::BattleMove* newMove = new GameState::BattleMove{
+			 gameState->totalTurns + 1, enemy->displayName(), "attack",hitting == true ? enemy->damage : 0
+		};
+		gameState->battleHistory->Insert(newMove);
+		hitting = false;
+		gameState->totalTurns++;
 		return;
 		break;
 	}
 		
-	case 1:
+	case 1: {
 		chargeAttack(cycle);
+		GameState::BattleMove* newMove = new GameState::BattleMove{
+			 gameState->totalTurns + 1, enemy->displayName(), "Charged attack", 0
+		};
+		gameState->battleHistory->Insert(newMove);
+		hitting = false;
+		gameState->totalTurns++;
 		return;
 		break;
-	case 2:
+	}
+	case 2: {
 		brace(player);
+		GameState::BattleMove* newMove = new GameState::BattleMove{
+		 gameState->totalTurns + 1, enemy->displayName(), "Braced attack", 0
+		};
+		gameState->battleHistory->Insert(newMove);
+		hitting = false;
+		gameState->totalTurns++;
 		return;
 		break;
-
+	}
 	default:
 		cout << "------------------------------ Enemy Took an invalid turn ---------------------------" << endl;
 	}
@@ -65,6 +86,10 @@ void Enemy::takeDamage(Player* player, float damage)
 void Enemy::displayPicture()
 {
 	cout << "enemy picture here" << endl;
+}
+string Enemy::displayName()
+{
+	return "Enemy got no name";
 }
 //
 //float Enemy::calcDamage(float damage)

@@ -9,6 +9,7 @@ class Wizard : public Player
 {	
 protected:
 	bool heavyAttackedUsed = false;
+	bool hitting = false;
 public:
 	Wizard() : Player(40, 30, 30) {};
 	~Wizard();

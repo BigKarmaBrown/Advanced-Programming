@@ -11,8 +11,7 @@ public:
 	NightCycle(int night = 0) : night(night){}
 
 	NightCycle operator+(const NightCycle& obj) {
-		NightCycle temp;
-		
+		NightCycle temp;	
 		temp.night = obj.night + night;
 	}
 	
