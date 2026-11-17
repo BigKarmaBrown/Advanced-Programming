@@ -3,6 +3,7 @@ class Enemy;
 using namespace std;
 #include "GameState.h"
 #include "NightCycle.h"
+#include "Tree.h"
 #include <iostream>
 class  Player
 {
@@ -28,7 +29,7 @@ public:
 	}
 	float maxHealth = 0;
 	float health = 0;
-	virtual GameState::battleResult takeTurn(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle);
+	virtual GameState::battleResult takeTurn(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle, Tree* tree);
 	virtual float attack(Player* player, Enemy* enemy);
 	virtual float attack(Player* player, Enemy* enemy, float Modifier);
 	

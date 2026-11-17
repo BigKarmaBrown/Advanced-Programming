@@ -8,7 +8,7 @@ using namespace std;
 #include <iostream>
 
 
-GameState::battleResult GameState::GameStart(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle)
+GameState::battleResult GameState::GameStart(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle, Tree* tree)
 {
 	system("CLS");
 	srand(static_cast<unsigned int>(time(0)));
@@ -38,7 +38,7 @@ GameState::battleResult GameState::GameStart(Player* player, Enemy* enemy, GameS
 		
 		if (player->health <= 0 || enemy->health <= 0) {
 			try {
-				displayWinner(player, enemy);
+				displayWinner(player, enemy, tree);
 			if (player->health <= 0) {
 				return battleResult::playerLose;
 			}
@@ -56,7 +56,7 @@ GameState::battleResult GameState::GameStart(Player* player, Enemy* enemy, GameS
 		}
 		else if (whosTurn == 1)
 		{
-			 auto turn = player->takeTurn(player, enemy, gameState, cycle);
+			 auto turn = player->takeTurn(player, enemy, gameState, cycle, tree);
 			 if (playerRanBool == true) {
 				 return battleResult::playerRan;
 			 }
@@ -71,7 +71,7 @@ GameState::battleResult GameState::GameStart(Player* player, Enemy* enemy, GameS
 		}
 	
 		else if (whosTurn == 2) {
-			enemy->taketurn(enemy, player, cycle, gameState);
+			enemy->taketurn(enemy, player, cycle, gameState, tree);
 			system("Pause");
 			system("CLS");
 			enemy->displayPicture();
@@ -89,7 +89,7 @@ GameState::battleResult GameState::GameStart(Player* player, Enemy* enemy, GameS
 
 }
 
-void GameState::displayWinner(Player* player, Enemy* enemy) {
+void GameState::displayWinner(Player* player, Enemy* enemy,Tree* tree) {
 	if (enemy->health <= 0)
 	{
 		player->killed++;
@@ -107,7 +107,7 @@ void GameState::displayWinner(Player* player, Enemy* enemy) {
 		player->damage += 10;
 		player->maxHealth += 10;
 		displayDead(player);
-		DisplayBattleHistory();
+		DisplayBattleHistory(tree);
 		system("Pause");
 		//delete enemy;
 	
@@ -127,7 +127,7 @@ void GameState::displayWinner(Player* player, Enemy* enemy) {
 
 		displayDead(player);
 		//delete player;
-		DisplayBattleHistory();
+		DisplayBattleHistory(tree);
 		system("Pause");
 		
 		return;
@@ -163,7 +163,7 @@ void GameState::displayDead(Player* player)
 	 }
 }
 
- void GameState::DisplayBattleHistory()
+ void GameState::DisplayBattleHistory(Tree* tree)
  {
 	 system("Pause");
 	 system("CLS");
@@ -171,9 +171,9 @@ void GameState::displayDead(Player* player)
 	 cout << "-------------------------------------------------------- Battle History ------------------------------------------------" << endl;
 	 cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 
-	 while (battleHistory->Size() > 0) {
+	 while (tree->battleHistory->Size() > 0) {
 	
-		 BattleMove* move = battleHistory->Remove();
+		 BattleMove* move = tree->battleHistory->Remove();
 	 
 		 cout << "Turn Number: " << move->turnNum << endl;
 		 cout << endl;
@@ -185,14 +185,16 @@ void GameState::displayDead(Player* player)
 		 cout << endl << endl;
 
 	 delete move;
+
+
 	 }
 	
 	
  }
 
- GameState::GameState(PriorityQueue<BattleMove>* history)
+ GameState::GameState(PriorityQueue<BattleMove>* history, Tree* tree)
  {
-	 battleHistory = history;
+	 tree->battleHistory = history;
  }
 
 

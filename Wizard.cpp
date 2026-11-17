@@ -61,7 +61,7 @@ float Wizard::attack(Player* player,Enemy* enemy, float Modifier)
 	}
 }
 
-GameState::battleResult Wizard::takeTurn(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle)
+GameState::battleResult Wizard::takeTurn(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle, Tree* tree)
 {
 	string input;
 
@@ -82,7 +82,7 @@ GameState::battleResult Wizard::takeTurn(Player* player, Enemy* enemy, GameState
 			 gameState->totalTurns + 1,"Wizard", "Attack",
 			 hitting == true ? damage : 0
 		};
-		gameState->battleHistory->Insert(newMove);
+		tree->battleHistory->Insert(newMove);
 		hitting = false;
 		gameState->totalTurns++;
 		return GameState::battleResult::playerMidFight;
@@ -94,7 +94,7 @@ GameState::battleResult Wizard::takeTurn(Player* player, Enemy* enemy, GameState
 		 gameState->totalTurns + 1,"Wizard", "Heavy Attack",
 		 hitting == true ? damage : 0
 		};
-		gameState->battleHistory->Insert(newMove);
+		tree->battleHistory->Insert(newMove);
 		hitting = false;
 		gameState->totalTurns++;
 		return GameState::battleResult::playerMidFight;
@@ -105,7 +105,7 @@ GameState::battleResult Wizard::takeTurn(Player* player, Enemy* enemy, GameState
 		GameState::BattleMove* newMove = new GameState::BattleMove{
 		 gameState->totalTurns + 1,"Wizard", "Brace",0
 		};
-		gameState->battleHistory->Insert(newMove);
+		tree->battleHistory->Insert(newMove);
 		gameState->totalTurns++;
 		return GameState::battleResult::playerMidFight;
 	}
@@ -113,7 +113,7 @@ GameState::battleResult Wizard::takeTurn(Player* player, Enemy* enemy, GameState
 	{
 		run(player, gameState);
 
-		gameState->battleHistory->~PriorityQueue();
+		tree->battleHistory->~PriorityQueue();
 		
 		return GameState::battleResult::playerRan;
 	}

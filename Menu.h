@@ -14,7 +14,7 @@ using namespace std;
 class Menu
 {
 public:
-	void StartMenu(Player*& player, Enemy*& enemy, GameState* gameState, NightCycle* cycle, PriorityQueue<GameState::BattleMove>* battleHistory);
-	void characterSelection(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle, PriorityQueue<GameState::BattleMove>* battleHistory);
-	void chooseOpponent(Player* player, Enemy* enemy, GameState*& gameState, NightCycle* cycle, PriorityQueue<GameState::BattleMove>* battleHistory);
+	void StartMenu(Player*& player, Enemy*& enemy, GameState* gameState, NightCycle* cycle, PriorityQueue<GameState::BattleMove>* battleHistory, Tree* tree);
+	void characterSelection(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle, PriorityQueue<GameState::BattleMove>* battleHistory, Tree* tree);
+	void chooseOpponent(Player* player, Enemy* enemy, GameState*& gameState, NightCycle* cycle, PriorityQueue<GameState::BattleMove>* battleHistory, Tree* tree);
 };

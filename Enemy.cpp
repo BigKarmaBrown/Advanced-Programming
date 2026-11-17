@@ -28,7 +28,7 @@ float Enemy::brace(Player* player)
 	
 }
 
-void Enemy::taketurn(Enemy* enemy, Player* player,NightCycle* cycle, GameState* gameState)
+void Enemy::taketurn(Enemy* enemy, Player* player,NightCycle* cycle, GameState* gameState, Tree* tree)
 {
 	srand(static_cast<unsigned int>(time(0)));
 	int randomNumber = rand() % 3 + 1;
@@ -43,7 +43,7 @@ void Enemy::taketurn(Enemy* enemy, Player* player,NightCycle* cycle, GameState* 
 		GameState::BattleMove* newMove = new GameState::BattleMove{
 			 gameState->totalTurns + 1, enemy->displayName(), "attack",hitting == true ? enemy->damage : 0
 		};
-		gameState->battleHistory->Insert(newMove);
+		tree->battleHistory->Insert(newMove);
 		hitting = false;
 		gameState->totalTurns++;
 		return;
@@ -55,7 +55,7 @@ void Enemy::taketurn(Enemy* enemy, Player* player,NightCycle* cycle, GameState* 
 		GameState::BattleMove* newMove = new GameState::BattleMove{
 			 gameState->totalTurns + 1, enemy->displayName(), "Charged attack", 0
 		};
-		gameState->battleHistory->Insert(newMove);
+		tree->battleHistory->Insert(newMove);
 		hitting = false;
 		gameState->totalTurns++;
 		return;
@@ -66,7 +66,7 @@ void Enemy::taketurn(Enemy* enemy, Player* player,NightCycle* cycle, GameState* 
 		GameState::BattleMove* newMove = new GameState::BattleMove{
 		 gameState->totalTurns + 1, enemy->displayName(), "Braced attack", 0
 		};
-		gameState->battleHistory->Insert(newMove);
+		tree->battleHistory->Insert(newMove);
 		hitting = false;
 		gameState->totalTurns++;
 		return;

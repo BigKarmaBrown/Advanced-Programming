@@ -66,7 +66,7 @@ GameState::battleResult  Barbarian::run(Player* player, GameState* gameState) {
 
 	return GameState::battleResult::playerRan;
 }
-GameState::battleResult Barbarian::takeTurn(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle)
+GameState::battleResult Barbarian::takeTurn(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle, Tree* tree)
 {
 	string input;
 
@@ -87,7 +87,7 @@ GameState::battleResult Barbarian::takeTurn(Player* player, Enemy* enemy, GameSt
 			 gameState->totalTurns + 1,"Barbarian", "Attack",
 			 hitting == true ? damage : 0
 		};
-		gameState->battleHistory->Insert(newMove);
+		tree->battleHistory->Insert(newMove);
 		hitting = false;
 		gameState->totalTurns++;
 		return GameState::battleResult::playerMidFight;
@@ -99,7 +99,7 @@ GameState::battleResult Barbarian::takeTurn(Player* player, Enemy* enemy, GameSt
 		 gameState->totalTurns + 1,"Barbarian", "Heavy Attack",
 		 hitting == true ? damage : 0
 		};
-		gameState->battleHistory->Insert(newMove);
+		tree->battleHistory->Insert(newMove);
 		hitting = false;
 		gameState->totalTurns++;
 		return GameState::battleResult::playerMidFight;
@@ -110,7 +110,7 @@ GameState::battleResult Barbarian::takeTurn(Player* player, Enemy* enemy, GameSt
 		GameState::BattleMove* newMove = new GameState::BattleMove{
 		 gameState->totalTurns + 1,"Barbarian", "Brace",0
 		};
-		gameState->battleHistory->Insert(newMove);
+		tree->battleHistory->Insert(newMove);
 		gameState->totalTurns++;
 		return GameState::battleResult::playerMidFight;
 	}
@@ -118,7 +118,7 @@ GameState::battleResult Barbarian::takeTurn(Player* player, Enemy* enemy, GameSt
 	{
 		run(player, gameState);
 	
-		gameState->battleHistory->~PriorityQueue();
+		tree->battleHistory->~PriorityQueue();
 
 		return GameState::battleResult::playerRan;
 	}

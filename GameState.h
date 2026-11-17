@@ -2,11 +2,12 @@
 #pragma once
 #include "Enemy.h"
 #include "PriorityQueue.h"
+
 using namespace std;
 #include <iostream>
 class Player;
 class Enemy;
-
+class Tree;
 
 class GameState
 {
@@ -21,13 +22,13 @@ enum battleResult{
 		playerWin, playerLose, playerRan, playerMidFight, playerNotInFight
 	};
 
-	battleResult GameStart(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle);
-	void displayWinner(Player* player, Enemy* enemy);
+	battleResult GameStart(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle, Tree* tree);
+	void displayWinner(Player* player, Enemy* enemy, Tree* tree);
 	//GameState(){};
 	//friend void displayDead(Player player);
 	void displayDead(Player* player);
 	static void showTurn(int turn);
-	void DisplayBattleHistory();
+	void DisplayBattleHistory(Tree* tree);
 	enum Move {
 		attack, heavyAttack, run, brace 
 	};
@@ -43,6 +44,6 @@ enum battleResult{
 		}
 
 	};
-	GameState(PriorityQueue<BattleMove>* history);
-	PriorityQueue<BattleMove>* battleHistory;
+	GameState(PriorityQueue<BattleMove>* history, Tree* tree);
+	
 };

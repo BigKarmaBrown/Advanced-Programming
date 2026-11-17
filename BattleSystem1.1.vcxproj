@@ -149,8 +149,10 @@
     <ClCompile Include="Goblin.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="NightCycle.cpp" />
+    <ClCompile Include="Node.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PriorityQueue.cpp" />
+    <ClCompile Include="Tree.cpp" />
     <ClCompile Include="Wizard.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -163,8 +165,10 @@
     <ClInclude Include="Goblin.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="NightCycle.h" />
+    <ClInclude Include="Node.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PriorityQueue.h" />
+    <ClInclude Include="Tree.h" />
     <ClInclude Include="Wizard.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

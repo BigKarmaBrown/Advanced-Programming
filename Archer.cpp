@@ -63,7 +63,7 @@ GameState::battleResult  Archer::run(Player* player, GameState* gameState) {
 	
 	return GameState::battleResult::playerRan;
 }
-GameState::battleResult Archer::takeTurn(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle) {
+GameState::battleResult Archer::takeTurn(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle, Tree* tree) {
 	string input;
 
 	cout << "Health: " << player->health << endl;
@@ -83,7 +83,7 @@ GameState::battleResult Archer::takeTurn(Player* player, Enemy* enemy, GameState
 			 gameState->totalTurns + 1,"Archer", "Attack",
 			 hitting == true ? damage : 0
 		};
-		gameState->battleHistory->Insert(newMove);
+		tree->battleHistory->Insert(newMove);
 		hitting = false;
 		gameState->totalTurns++;
 		return GameState::battleResult::playerMidFight;
@@ -95,7 +95,7 @@ GameState::battleResult Archer::takeTurn(Player* player, Enemy* enemy, GameState
 		 gameState->totalTurns + 1,"Archer", "Heavy Attack",
 		 hitting == true ? damage : 0
 		};
-		gameState->battleHistory->Insert(newMove);
+		tree->battleHistory->Insert(newMove);
 		hitting = false;
 		gameState->totalTurns++;
 		return GameState::battleResult::playerMidFight;
@@ -106,7 +106,7 @@ GameState::battleResult Archer::takeTurn(Player* player, Enemy* enemy, GameState
 		GameState::BattleMove* newMove = new GameState::BattleMove{
 		 gameState->totalTurns + 1,"Archer", "Brace",0
 		};
-		gameState->battleHistory->Insert(newMove);
+		tree->battleHistory->Insert(newMove);
 		gameState->totalTurns++;
 		return GameState::battleResult::playerMidFight;
 	}
@@ -114,7 +114,7 @@ GameState::battleResult Archer::takeTurn(Player* player, Enemy* enemy, GameState
 	{
 		run(player, gameState);
 
-		gameState->battleHistory->~PriorityQueue();
+		tree->battleHistory->~PriorityQueue();
 
 		return GameState::battleResult::playerRan;
 	}

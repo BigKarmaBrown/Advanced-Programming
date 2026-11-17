@@ -5,6 +5,7 @@ using namespace std;
 #include "Gamestate.h"
 #include "NightCycle.h"
 #include "PriorityQueue.h"
+#include "Tree.h"
 
 
 int main()
@@ -16,8 +17,10 @@ int main()
     GameState::battleResult::playerNotInFight;
     NightCycle* cycle = 0;
     PriorityQueue<GameState::BattleMove>battleHistory(111);
-    GameState gameState(&battleHistory);
-    menu.StartMenu(player, enemy, result, cycle, &battleHistory);
-
-
+  
+    
+    Tree* tree = new Tree();
+    
+     GameState gameState(&battleHistory, tree);
+    menu.StartMenu(player, enemy, result, cycle, &battleHistory, tree);
 }

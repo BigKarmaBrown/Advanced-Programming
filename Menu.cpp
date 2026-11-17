@@ -4,7 +4,7 @@ using namespace std;
 #include <iostream>
 //#include <cctype>
 
-void Menu::StartMenu(Player*& player, Enemy*& enemy, GameState* gameState, NightCycle* cycle, PriorityQueue<GameState::BattleMove>* battleHistory)
+void Menu::StartMenu(Player*& player, Enemy*& enemy, GameState* gameState, NightCycle* cycle, PriorityQueue<GameState::BattleMove>* battleHistory, Tree* tree)
 {
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
@@ -30,11 +30,11 @@ void Menu::StartMenu(Player*& player, Enemy*& enemy, GameState* gameState, Night
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 	system("Pause");
-	characterSelection(player,enemy, gameState, cycle, battleHistory);
+	characterSelection(player,enemy, gameState, cycle, battleHistory, tree);
 
 }
 
-void Menu::characterSelection(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle, PriorityQueue<GameState::BattleMove>* battleHistory)
+void Menu::characterSelection(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle, PriorityQueue<GameState::BattleMove>* battleHistory, Tree* tree)
 {
 	string choice;
 	system("CLS");
@@ -67,21 +67,21 @@ void Menu::characterSelection(Player* player, Enemy* enemy, GameState* gameState
 		
 		cout << "----------------------------------------------- Barbarian  Selected ----------------------------------------------------" << endl;
 		system("pause");
-		chooseOpponent(player, enemy, gameState, cycle, battleHistory);
+		chooseOpponent(player, enemy, gameState, cycle, battleHistory, tree);
 	}
 	else if (choice == "2" || choice == "Wiz" || choice == "Wizard" || choice == "2: Wizard" || choice == "wiz" || choice == "wizard")
 	{
 		player = new Wizard();
 		cout << "-------------------------------------------------- Wizard  Selected ----------------------------------------------------" << endl;
 		system("pause");
-		chooseOpponent(player, enemy, gameState, cycle, battleHistory);
+		chooseOpponent(player, enemy, gameState, cycle, battleHistory, tree);
 	}
 	else if (choice == "3" || choice == "Archer" || choice == "Arch" || choice == "3: Archer" || choice == "archer" || choice == "arch")
 	{
 		player = new Archer();
 		cout << "-------------------------------------------------- Archer  Selected ----------------------------------------------------" << endl;
 		system("pause");
-		chooseOpponent(player, enemy, gameState, cycle, battleHistory);
+		chooseOpponent(player, enemy, gameState, cycle, battleHistory, tree);
 	}
 	else {
 		cout << "Invalid Input, Please try again!" << endl;
@@ -89,12 +89,12 @@ void Menu::characterSelection(Player* player, Enemy* enemy, GameState* gameState
 	}
 }
 
-void Menu::chooseOpponent(Player* player, Enemy* enemy, GameState*& gameState, NightCycle* cycle, PriorityQueue<GameState::BattleMove>* battleHistory)
+void Menu::chooseOpponent(Player* player, Enemy* enemy, GameState*& gameState, NightCycle* cycle, PriorityQueue<GameState::BattleMove>* battleHistory, Tree* tree)
 {
 	system("CLS");
 	delete gameState;
 	player->health = player->maxHealth;
-	gameState = new GameState(battleHistory);
+	gameState = new GameState(battleHistory, tree);
 	if (gameState->playerRanBool == true) {
 			cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 		cout << "--------------------------------------------------- Ran Succesfully ----------------------------------------------------" << endl;
@@ -144,12 +144,12 @@ void Menu::chooseOpponent(Player* player, Enemy* enemy, GameState*& gameState, N
 		gameState->playerRanBool = false;
 		system("pause");
 		
-		GameState::battleResult result = gameState->GameStart(player, enemy, gameState, cycle);
+		GameState::battleResult result = gameState->GameStart(player, enemy, gameState, cycle, tree);
 		if (result == GameState::battleResult::playerRan || result == GameState::battleResult::playerLose || result == GameState::battleResult::playerWin)
 		{
 			delete enemy;
 			enemy = nullptr;
-			chooseOpponent(player, enemy, gameState, cycle, battleHistory);
+			chooseOpponent(player, enemy, gameState, cycle, battleHistory, tree);
 			return;
 		}
 	
@@ -160,12 +160,12 @@ void Menu::chooseOpponent(Player* player, Enemy* enemy, GameState*& gameState, N
 		gameState->playerRanBool = false;
 		cout << "-------------------------------------------------- Dragon  Selected ----------------------------------------------------" << endl;
 		system("pause");
-		GameState::battleResult result = gameState->GameStart(player, enemy, gameState, cycle);
+		GameState::battleResult result = gameState->GameStart(player, enemy, gameState, cycle, tree);
 		if (result == GameState::battleResult::playerRan || result == GameState::battleResult::playerLose || result == GameState::battleResult::playerWin)
 		{
 			delete enemy;
 			enemy = nullptr;
-			chooseOpponent(player, enemy, gameState, cycle, battleHistory);
+			chooseOpponent(player, enemy, gameState, cycle, battleHistory, tree);
 			return;
 		}
 	

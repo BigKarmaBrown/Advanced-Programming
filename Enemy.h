@@ -4,6 +4,7 @@
 class Player;
 class GameState;
 class NightCycle;
+class Tree;
 using namespace std;
 #include <iostream>
 class Enemy
@@ -19,7 +20,7 @@ public:
 	virtual float attack(float damage, Player* player, NightCycle* cycle);
 	void chargeAttack(NightCycle* cycle);
 	static float brace(Player* player);
-	void taketurn(Enemy* enemy, Player* player, NightCycle* cycle, GameState* gameState);
+	void taketurn(Enemy* enemy, Player* player, NightCycle* cycle, GameState* gameState, Tree* tree);
 	 void takeDamage(Player* player, float damage);
 	 virtual void displayPicture();
 	 virtual string displayName();
