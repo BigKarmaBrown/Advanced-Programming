@@ -89,6 +89,7 @@ GameState::battleResult Wizard::takeTurn(Player* player, Enemy* enemy, GameState
 	}
 	else if (input == "2" || input == "Heavy" || input == "2: Heavy Attack" || input == "H")
 	{
+		attack(player, enemy, 2);
 		float damage = attack(player, enemy, 2);
 		GameState::BattleMove* newMove = new GameState::BattleMove{
 		 gameState->totalTurns + 1,"Wizard", "Heavy Attack",
@@ -112,7 +113,10 @@ GameState::battleResult Wizard::takeTurn(Player* player, Enemy* enemy, GameState
 	else if (input == "4" || input == "Run" || input == "run" || input == "4: Run")
 	{
 		run(player, gameState);
-
+		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
+		cout << "-------------------------------------------------- Wizard ran from the fight -------------------------------------------" << endl;
+		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
+		system("Pause");
 		tree->battleHistory->~PriorityQueue();
 		
 		return GameState::battleResult::playerRan;

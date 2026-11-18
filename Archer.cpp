@@ -113,7 +113,10 @@ GameState::battleResult Archer::takeTurn(Player* player, Enemy* enemy, GameState
 	else if (input == "4" || input == "Run" || input == "run" || input == "4: Run")
 	{
 		run(player, gameState);
-
+		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
+		cout << "-------------------------------------------------- Archer ran from the fight -------------------------------------------" << endl;
+		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
+		system("Pause");
 		tree->battleHistory->~PriorityQueue();
 
 		return GameState::battleResult::playerRan;

@@ -57,6 +57,7 @@ GameState::battleResult GameState::GameStart(Player* player, Enemy* enemy, GameS
 		else if (whosTurn == 1)
 		{
 			 auto turn = player->takeTurn(player, enemy, gameState, cycle, tree);
+			 AccountTurns++;
 			 if (playerRanBool == true) {
 				 return battleResult::playerRan;
 			 }
@@ -72,6 +73,7 @@ GameState::battleResult GameState::GameStart(Player* player, Enemy* enemy, GameS
 	
 		else if (whosTurn == 2) {
 			enemy->taketurn(enemy, player, cycle, gameState, tree);
+			AccountTurns++;
 			system("Pause");
 			system("CLS");
 			enemy->displayPicture();
@@ -136,7 +138,7 @@ void GameState::displayWinner(Player* player, Enemy* enemy,Tree* tree) {
 
 void GameState::displayDead(Player* player)
 {
-	//assert(player->killed);
+	
 	cout << "Enemies Slain: " << player->killed << endl;
 }
 

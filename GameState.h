@@ -21,7 +21,7 @@ public:
 enum battleResult{
 		playerWin, playerLose, playerRan, playerMidFight, playerNotInFight
 	};
-
+	static int AccountTurns;
 	battleResult GameStart(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle, Tree* tree);
 	void displayWinner(Player* player, Enemy* enemy, Tree* tree);
 	//GameState(){};

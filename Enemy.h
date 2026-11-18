@@ -17,7 +17,7 @@ protected:
 	//virtual string name;
 
 public:
-	virtual float attack(float damage, Player* player, NightCycle* cycle);
+	virtual float attack(float damage, Player* player, NightCycle* cycle) = 0;
 	void chargeAttack(NightCycle* cycle);
 	static float brace(Player* player);
 	void taketurn(Enemy* enemy, Player* player, NightCycle* cycle, GameState* gameState, Tree* tree);

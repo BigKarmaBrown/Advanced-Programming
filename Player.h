@@ -8,7 +8,7 @@ using namespace std;
 class  Player
 {
 private:
-	/*static*/ int killed = 0;
+	 int killed = 0;
 protected:
 	
 	

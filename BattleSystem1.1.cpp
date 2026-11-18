@@ -7,7 +7,7 @@ using namespace std;
 #include "PriorityQueue.h"
 #include "Tree.h"
 
-
+int GameState::AccountTurns = 0;
 int main()
 {
     Menu menu;

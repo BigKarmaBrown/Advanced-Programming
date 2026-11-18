@@ -117,7 +117,11 @@ GameState::battleResult Barbarian::takeTurn(Player* player, Enemy* enemy, GameSt
 	else if (input == "4" || input == "Run" || input == "run" || input == "4: Run")
 	{
 		run(player, gameState);
-	
+		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
+		cout << "------------------------------------------------ Barbarain ran from the fight ------------------------------------------" << endl;
+		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
+		system("Pause");
+
 		tree->battleHistory->~PriorityQueue();
 
 		return GameState::battleResult::playerRan;

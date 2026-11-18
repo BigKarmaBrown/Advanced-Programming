@@ -5,11 +5,11 @@ using namespace std;
 class ErrorHandler : public exception
 {
 public:
-    virtual const char* cantDisplayWInner() const throw()
+    const string* cantDisplayWInner() const throw()
     {
         return "Error: cant display winner";
     }
-    virtual const char* cantAcknowledgeTurn() const throw()
+     const char* cantAcknowledgeTurn() const throw()
     {
         return "Error: dont know whos turn";
     }
