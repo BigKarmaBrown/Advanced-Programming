@@ -147,11 +147,12 @@
     <ClCompile Include="ErrorHandler.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="Goblin.cpp" />
+    <ClCompile Include="Link.cpp" />
+    <ClCompile Include="LinkedListMoves.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="NightCycle.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="PriorityQueue.cpp" />
     <ClCompile Include="Tree.cpp" />
     <ClCompile Include="Wizard.cpp" />
   </ItemGroup>
@@ -163,11 +164,12 @@
     <ClInclude Include="ErrorHandler.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="Goblin.h" />
+    <ClInclude Include="Link.h" />
+    <ClInclude Include="LinkedListMoves.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="NightCycle.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="PriorityQueue.h" />
     <ClInclude Include="Tree.h" />
     <ClInclude Include="Wizard.h" />
   </ItemGroup>

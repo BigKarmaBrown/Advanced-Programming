@@ -2,8 +2,8 @@
 #include "Node.h"
 #include "GameState.h"
 class GameState;
-#include "PriorityQueue.h"
-class Tree
+//#include "PriorityQueue.h"
+class Tree      //store enemies
 {
 public:
 
@@ -12,8 +12,10 @@ public:
     Tree();
     Node* Find(int key);
     void DisplayInOrder(Node* localRoot);
-    void Insert(GameState::BattleMove move, int data);
+    void Insert(int data);
 
-    PriorityQueue<GameState::BattleMove>* battleHistory;
+    
+
+    void displayRecentMoves();
 };
 

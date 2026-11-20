@@ -2,21 +2,19 @@
 #include "Player.h"
 #include "GameState.h"
 #include "NightCycle.h"
-
+//#include "LinkedListMoves.h"
+#include "LinkedListMoves.h"
 using namespace std;
 
 
-float Enemy::attack(float damage, Player* player,NightCycle* cycle)
-{
-	
-	return damage;
-}
+
 
 void Enemy::chargeAttack(NightCycle* cycle)
 {
 	cycle++;
 	cout << "Enemy charged an attack! " << endl;
-
+	//Altering the objects data as if it was a variable
+	// using redefined operators. 
 	return;
 }
 
@@ -28,7 +26,7 @@ float Enemy::brace(Player* player)
 	
 }
 
-void Enemy::taketurn(Enemy* enemy, Player* player,NightCycle* cycle, GameState* gameState, Tree* tree)
+void Enemy::taketurn(Enemy* enemy, Player* player,NightCycle* cycle, GameState* gameState, LinkedListMoves* moves)
 {
 	srand(static_cast<unsigned int>(time(0)));
 	int randomNumber = rand() % 3 + 1;
@@ -37,13 +35,16 @@ void Enemy::taketurn(Enemy* enemy, Player* player,NightCycle* cycle, GameState* 
 	switch (randomNumber)
 	{
 	case 0: {
+		enemy->attack(enemy->damage, player, cycle);
 		float damageTemp = enemy->attack(enemy->damage, player, cycle);
 		player->takeDamage(damageTemp);
 
-		GameState::BattleMove* newMove = new GameState::BattleMove{
+		battleMove* newMove = new battleMove{
 			 gameState->totalTurns + 1, enemy->displayName(), "attack",hitting == true ? enemy->damage : 0
 		};
-		tree->battleHistory->Insert(newMove);
+		Link* link = new Link(newMove);
+		moves->Insert(link);
+		//tree->battleHistory->Insert(newMove);
 		hitting = false;
 		gameState->totalTurns++;
 		return;
@@ -52,10 +53,12 @@ void Enemy::taketurn(Enemy* enemy, Player* player,NightCycle* cycle, GameState* 
 		
 	case 1: {
 		chargeAttack(cycle);
-		GameState::BattleMove* newMove = new GameState::BattleMove{
+		battleMove* newMove = new battleMove{
 			 gameState->totalTurns + 1, enemy->displayName(), "Charged attack", 0
 		};
-		tree->battleHistory->Insert(newMove);
+		Link* link = new Link(newMove);
+		moves->Insert(link);
+		//tree->battleHistory->Insert(newMove);
 		hitting = false;
 		gameState->totalTurns++;
 		return;
@@ -63,10 +66,12 @@ void Enemy::taketurn(Enemy* enemy, Player* player,NightCycle* cycle, GameState* 
 	}
 	case 2: {
 		brace(player);
-		GameState::BattleMove* newMove = new GameState::BattleMove{
+		battleMove* newMove = new battleMove{
 		 gameState->totalTurns + 1, enemy->displayName(), "Braced attack", 0
 		};
-		tree->battleHistory->Insert(newMove);
+		Link* link = new Link(newMove);
+		moves->Insert(link);
+		//tree->battleHistory->Insert(newMove);
 		hitting = false;
 		gameState->totalTurns++;
 		return;

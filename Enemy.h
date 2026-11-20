@@ -1,10 +1,11 @@
 #pragma once
-#include "NightCycle.h"
-#include "GameState.h"
+class NightCycle;// "NightCycle.h"
+//#include "GameState.h"
 class Player;
 class GameState;
-class NightCycle;
-class Tree;
+//class NightCycle;
+class LinkedListMoves;
+//#include "LinkedListMoves.h"
 using namespace std;
 #include <iostream>
 class Enemy
@@ -20,7 +21,7 @@ public:
 	virtual float attack(float damage, Player* player, NightCycle* cycle) = 0;
 	void chargeAttack(NightCycle* cycle);
 	static float brace(Player* player);
-	void taketurn(Enemy* enemy, Player* player, NightCycle* cycle, GameState* gameState, Tree* tree);
+	void taketurn(Enemy* enemy, Player* player, NightCycle* cycle, GameState* gameState, LinkedListMoves* moves);
 	 void takeDamage(Player* player, float damage);
 	 virtual void displayPicture();
 	 virtual string displayName();

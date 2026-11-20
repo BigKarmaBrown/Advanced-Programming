@@ -25,9 +25,9 @@ void Tree::DisplayInOrder(Node* localRoot) {
     }
 }
 
-void Tree::Insert(GameState::BattleMove battleMove, int data)
+void Tree::Insert( int data)
 {
-    Node* nodeptr = new Node(battleMove, data);
+    Node* nodeptr = new Node(data);
 
     if (root == nullptr) {
         root = nodeptr;
@@ -41,14 +41,14 @@ void Tree::Insert(GameState::BattleMove battleMove, int data)
             if (data < current->data) {
                 current  = current->leftChild;
                 if (current == 0) {
-                    parent->leftChild = new Node(battleMove, data);
+                    parent->leftChild = new Node(data);
                     return;
                 }
             }
             else {
                 current = current->rightChild;
                 if (current == 0) {
-                    parent->rightChild = new Node(battleMove, data);
+                    parent->rightChild = new Node( data);
                     return;
                 }
             }
@@ -57,4 +57,9 @@ void Tree::Insert(GameState::BattleMove battleMove, int data)
     }
 
 
+}
+
+void Tree::displayRecentMoves()
+{
+    
 }

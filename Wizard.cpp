@@ -6,6 +6,8 @@ Wizard::~Wizard()
 
 float Wizard::attack(Player* player, Enemy* enemy)
 {
+	//Using the same function name but passing different parameters, 
+	// gives separate implementations called via the parameters.
 	srand(static_cast<unsigned int>(time(0)));
 	int randomNumber = rand() % 2 + 1;
 	if (randomNumber == 1)
@@ -61,7 +63,7 @@ float Wizard::attack(Player* player,Enemy* enemy, float Modifier)
 	}
 }
 
-GameState::battleResult Wizard::takeTurn(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle, Tree* tree)
+GameState::battleResult Wizard::takeTurn(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle, LinkedListMoves* moves)
 {
 	string input;
 
@@ -78,11 +80,15 @@ GameState::battleResult Wizard::takeTurn(Player* player, Enemy* enemy, GameState
 	if (input == "1" || input == "Attack" || input == "1: Attack" || input == "attack")
 	{
 		attack(player, enemy);
-		GameState::BattleMove* newMove = new GameState::BattleMove{
+		//The functions are both called via attack but different parameters,
+		// therefore different definitions and uses.
+		battleMove* newMove = new battleMove{
 			 gameState->totalTurns + 1,"Wizard", "Attack",
 			 hitting == true ? damage : 0
 		};
-		tree->battleHistory->Insert(newMove);
+		Link* link = new Link(newMove);
+		moves->Insert(link);
+		//tree->battleHistory->Insert(newMove);
 		hitting = false;
 		gameState->totalTurns++;
 		return GameState::battleResult::playerMidFight;
@@ -91,11 +97,14 @@ GameState::battleResult Wizard::takeTurn(Player* player, Enemy* enemy, GameState
 	{
 		attack(player, enemy, 2);
 		float damage = attack(player, enemy, 2);
-		GameState::BattleMove* newMove = new GameState::BattleMove{
+		battleMove* newMove = new battleMove{
 		 gameState->totalTurns + 1,"Wizard", "Heavy Attack",
 		 hitting == true ? damage : 0
 		};
-		tree->battleHistory->Insert(newMove);
+		Link* link = new Link(newMove);
+		moves->Insert(link);
+	//	tree->battleHistory->Insert(newMove);
+		//tree->Insert(*newMove, newMove->turnNum);
 		hitting = false;
 		gameState->totalTurns++;
 		return GameState::battleResult::playerMidFight;
@@ -103,10 +112,13 @@ GameState::battleResult Wizard::takeTurn(Player* player, Enemy* enemy, GameState
 	else if (input == "3" || input == "Brace" || input == "3: Brace" || input == "brace")
 	{
 		brace(enemy);
-		GameState::BattleMove* newMove = new GameState::BattleMove{
+		battleMove* newMove = new battleMove{
 		 gameState->totalTurns + 1,"Wizard", "Brace",0
 		};
-		tree->battleHistory->Insert(newMove);
+		Link* link = new Link(newMove);
+		moves->Insert(link);
+		//tree->battleHistory->Insert(newMove);
+		//tree->Insert(*newMove, newMove->turnNum);
 		gameState->totalTurns++;
 		return GameState::battleResult::playerMidFight;
 	}
@@ -117,8 +129,8 @@ GameState::battleResult Wizard::takeTurn(Player* player, Enemy* enemy, GameState
 		cout << "-------------------------------------------------- Wizard ran from the fight -------------------------------------------" << endl;
 		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 		system("Pause");
-		tree->battleHistory->~PriorityQueue();
-		
+		//tree->battleHistory->~PriorityQueue();
+		moves->~LinkedListMoves();
 		return GameState::battleResult::playerRan;
 	}
 	else {

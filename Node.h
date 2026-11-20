@@ -7,7 +7,13 @@ public:
     Node* leftChild;
     Node* rightChild;
     int data;
-    Node(GameState::BattleMove battleMove, int data);
+   // battleMove battleMove;
+    Node( int data) {
+        leftChild = nullptr;
+        rightChild = nullptr;
+        this->data = data;
+       // this->battleMove = battleMove;
+    };
     void Display();
 };
 

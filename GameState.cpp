@@ -8,7 +8,7 @@ using namespace std;
 #include <iostream>
 
 
-GameState::battleResult GameState::GameStart(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle, Tree* tree)
+GameState::battleResult GameState::GameStart(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle, LinkedListMoves* moves)
 {
 	system("CLS");
 	srand(static_cast<unsigned int>(time(0)));
@@ -17,7 +17,9 @@ GameState::battleResult GameState::GameStart(Player* player, Enemy* enemy, GameS
 
 	void (*showTurns)(int);
 	showTurns = &GameState::showTurn;
-	
+	//Declare a pointer of return type void 
+	// and state that the function needs type int.
+	// Assign the function to a memory address. 
 
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
@@ -38,7 +40,7 @@ GameState::battleResult GameState::GameStart(Player* player, Enemy* enemy, GameS
 		
 		if (player->health <= 0 || enemy->health <= 0) {
 			try {
-				displayWinner(player, enemy, tree);
+				displayWinner(player, enemy, moves);
 			if (player->health <= 0) {
 				return battleResult::playerLose;
 			}
@@ -50,13 +52,15 @@ GameState::battleResult GameState::GameStart(Player* player, Enemy* enemy, GameS
 			{
 				cout << "Exception: " << e.cantDisplayWInner();
 			
-			}
+			}//Try keyword is used to attempt the preceding code. 
+			//If it cannot, it outputs the catch statement, 
+			//which is calling on the error message rather than crashing. 
 			
 			
 		}
 		else if (whosTurn == 1)
 		{
-			 auto turn = player->takeTurn(player, enemy, gameState, cycle, tree);
+			 auto turn = player->takeTurn(player, enemy, gameState, cycle, moves);
 			 AccountTurns++;
 			 if (playerRanBool == true) {
 				 return battleResult::playerRan;
@@ -69,10 +73,12 @@ GameState::battleResult GameState::GameStart(Player* player, Enemy* enemy, GameS
 			enemy->displayPicture();
 			whosTurn = 2;
 			showTurns(whosTurn);
+			//Assign/ Calculate a variable 
+			// which is passed into the pointers function call.
 		}
 	
 		else if (whosTurn == 2) {
-			enemy->taketurn(enemy, player, cycle, gameState, tree);
+			enemy->taketurn(enemy, player, cycle, gameState, moves);
 			AccountTurns++;
 			system("Pause");
 			system("CLS");
@@ -91,7 +97,7 @@ GameState::battleResult GameState::GameStart(Player* player, Enemy* enemy, GameS
 
 }
 
-void GameState::displayWinner(Player* player, Enemy* enemy,Tree* tree) {
+void GameState::displayWinner(Player* player, Enemy* enemy, LinkedListMoves* moves) {
 	if (enemy->health <= 0)
 	{
 		player->killed++;
@@ -109,7 +115,7 @@ void GameState::displayWinner(Player* player, Enemy* enemy,Tree* tree) {
 		player->damage += 10;
 		player->maxHealth += 10;
 		displayDead(player);
-		DisplayBattleHistory(tree);
+		DisplayBattleHistory(moves);
 		system("Pause");
 		//delete enemy;
 	
@@ -129,7 +135,7 @@ void GameState::displayWinner(Player* player, Enemy* enemy,Tree* tree) {
 
 		displayDead(player);
 		//delete player;
-		DisplayBattleHistory(tree);
+		DisplayBattleHistory(moves);
 		system("Pause");
 		
 		return;
@@ -140,6 +146,7 @@ void GameState::displayDead(Player* player)
 {
 	
 	cout << "Enemies Slain: " << player->killed << endl;
+	//The other class can access private data via friendship.
 }
 
  void GameState:: showTurn(int turn)
@@ -165,7 +172,7 @@ void GameState::displayDead(Player* player)
 	 }
 }
 
- void GameState::DisplayBattleHistory(Tree* tree)
+ void GameState::DisplayBattleHistory(LinkedListMoves* moves)
  {
 	 system("Pause");
 	 system("CLS");
@@ -173,30 +180,31 @@ void GameState::displayDead(Player* player)
 	 cout << "-------------------------------------------------------- Battle History ------------------------------------------------" << endl;
 	 cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 
-	 while (tree->battleHistory->Size() > 0) {
+	 //while (moves->battleHistory->Size() > 0) {
 	
-		 BattleMove* move = tree->battleHistory->Remove();
-	 
-		 cout << "Turn Number: " << move->turnNum << endl;
-		 cout << endl;
-		cout << "Person: " << move->person << endl;
-		cout << "Move: " << move->move << endl;
-		 if (move->damage > 0) {
-		cout << "Damage: " << move->damage << endl;
-		 }
-		 cout << endl << endl;
+		// BattleMove* move = moves->battleHistory->Remove();
+	 //
+		// cout << "Turn Number: " << move->turnNum << endl;
+		// cout << endl;
+		//cout << "Person: " << move->person << endl;
+		//cout << "Move: " << move->move << endl;
+		// if (move->damage > 0) {
+		//cout << "Damage: " << move->damage << endl;
+		// }
+		// cout << endl << endl;
 
-	 delete move;
+	 //delete move;
 
 
-	 }
+	 //}
 	
 	
  }
 
- GameState::GameState(PriorityQueue<BattleMove>* history, Tree* tree)
+ GameState::GameState(LinkedListMoves* moves)
  {
-	 tree->battleHistory = history;
+	// moves->
+	 //moves->battleHistory = moves->battleHistory;
  }
 
 

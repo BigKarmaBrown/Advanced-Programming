@@ -4,7 +4,7 @@ using namespace std;
 #include <iostream>
 //#include <cctype>
 
-void Menu::StartMenu(Player*& player, Enemy*& enemy, GameState* gameState, NightCycle* cycle, PriorityQueue<GameState::BattleMove>* battleHistory, Tree* tree)
+void Menu::StartMenu(Player*& player, Enemy*& enemy, GameState* gameState, NightCycle* cycle, LinkedListMoves* moves)
 {
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
@@ -30,12 +30,12 @@ void Menu::StartMenu(Player*& player, Enemy*& enemy, GameState* gameState, Night
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 	system("Pause");
-	characterSelection(player,enemy, gameState, cycle, battleHistory, tree);
+	characterSelection(player,enemy, gameState, cycle, moves);
 
 }
 
-void Menu::characterSelection(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle, PriorityQueue<GameState::BattleMove>* battleHistory, Tree* tree)
-{
+void Menu::characterSelection(Player* player, Enemy* enemy, GameState* gameState, NightCycle* cycle, LinkedListMoves* moves)
+{//This pointer can be passed into a function which can modify its value.  
 	string choice;
 	system("CLS");
 	cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
@@ -64,24 +64,24 @@ void Menu::characterSelection(Player* player, Enemy* enemy, GameState* gameState
 	else if (choice == "1" || choice == "Barb" || choice == "Barbarian" || choice == "4: Barbarian" || choice == "barb" || choice == "barbarian")
 	{
 		player = new Barbarian();
-		
+		//Pointer retains name and has its data changed.
 		cout << "----------------------------------------------- Barbarian  Selected ----------------------------------------------------" << endl;
 		system("pause");
-		chooseOpponent(player, enemy, gameState, cycle, battleHistory, tree);
+		chooseOpponent(player, enemy, gameState, cycle, moves);
 	}
 	else if (choice == "2" || choice == "Wiz" || choice == "Wizard" || choice == "2: Wizard" || choice == "wiz" || choice == "wizard")
 	{
 		player = new Wizard();
 		cout << "-------------------------------------------------- Wizard  Selected ----------------------------------------------------" << endl;
 		system("pause");
-		chooseOpponent(player, enemy, gameState, cycle, battleHistory, tree);
+		chooseOpponent(player, enemy, gameState, cycle, moves);
 	}
 	else if (choice == "3" || choice == "Archer" || choice == "Arch" || choice == "3: Archer" || choice == "archer" || choice == "arch")
 	{
 		player = new Archer();
 		cout << "-------------------------------------------------- Archer  Selected ----------------------------------------------------" << endl;
 		system("pause");
-		chooseOpponent(player, enemy, gameState, cycle, battleHistory, tree);
+		chooseOpponent(player, enemy, gameState, cycle, moves);
 	}
 	else {
 		cout << "Invalid Input, Please try again!" << endl;
@@ -89,12 +89,12 @@ void Menu::characterSelection(Player* player, Enemy* enemy, GameState* gameState
 	}
 }
 
-void Menu::chooseOpponent(Player* player, Enemy* enemy, GameState*& gameState, NightCycle* cycle, PriorityQueue<GameState::BattleMove>* battleHistory, Tree* tree)
+void Menu::chooseOpponent(Player* player, Enemy* enemy, GameState*& gameState, NightCycle* cycle, LinkedListMoves* moves)
 {
 	system("CLS");
 	delete gameState;
 	player->health = player->maxHealth;
-	gameState = new GameState(battleHistory, tree);
+	gameState = new GameState(moves);
 	if (gameState->playerRanBool == true) {
 			cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 		cout << "--------------------------------------------------- Ran Succesfully ----------------------------------------------------" << endl;
@@ -144,12 +144,14 @@ void Menu::chooseOpponent(Player* player, Enemy* enemy, GameState*& gameState, N
 		gameState->playerRanBool = false;
 		system("pause");
 		
-		GameState::battleResult result = gameState->GameStart(player, enemy, gameState, cycle, tree);
+		GameState::battleResult result = gameState->GameStart(player, enemy, gameState, cycle, moves);
 		if (result == GameState::battleResult::playerRan || result == GameState::battleResult::playerLose || result == GameState::battleResult::playerWin)
 		{
 			delete enemy;
 			enemy = nullptr;
-			chooseOpponent(player, enemy, gameState, cycle, battleHistory, tree);
+			//Free the allocated memory using the keyword delete. 
+			// Set the pointer to null to avoid dangling pointers.
+			chooseOpponent(player, enemy, gameState, cycle, moves);
 			return;
 		}
 	
@@ -160,12 +162,12 @@ void Menu::chooseOpponent(Player* player, Enemy* enemy, GameState*& gameState, N
 		gameState->playerRanBool = false;
 		cout << "-------------------------------------------------- Dragon  Selected ----------------------------------------------------" << endl;
 		system("pause");
-		GameState::battleResult result = gameState->GameStart(player, enemy, gameState, cycle, tree);
+		GameState::battleResult result = gameState->GameStart(player, enemy, gameState, cycle, moves);
 		if (result == GameState::battleResult::playerRan || result == GameState::battleResult::playerLose || result == GameState::battleResult::playerWin)
 		{
 			delete enemy;
 			enemy = nullptr;
-			chooseOpponent(player, enemy, gameState, cycle, battleHistory, tree);
+			chooseOpponent(player, enemy, gameState, cycle, moves);
 			return;
 		}
 	

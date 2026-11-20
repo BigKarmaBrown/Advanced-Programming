@@ -2,6 +2,7 @@
 #include "Enemy.h"
 using namespace std;
 #include <iostream>
+//class NightCycle;
 class Goblin : public Enemy
 {
 public:
